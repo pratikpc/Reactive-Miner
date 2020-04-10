@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
-import * as d3 from 'd3';
+import React, { useContext, useState } from 'react';
 import MagicDropzone from 'react-magic-dropzone';
 import { csvContext } from '../context/csv-context';
 import Paper from '@material-ui/core/Paper';
+import { ReadCSV } from '../ml/utils';
 
 const CsvReader = () => {
     const { fetchCsv } = useContext(csvContext);
+    const [delimiter, setDelimiter] = useState(',');
     const onDrop = async (accepted, rejected, links) => {
         if (accepted && accepted.length > 0) {
-            let data = await d3.csv(accepted[0].preview);
+            const url = accepted[0].preview;
+            const data = ReadCSV(url, delimiter);
             fetchCsv(data);
         }
     }
