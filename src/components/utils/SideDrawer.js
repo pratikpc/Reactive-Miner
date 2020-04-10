@@ -58,7 +58,7 @@ const SideDrawer = props => {
             <ListItem button onClick={() => {pushLink('/')}}>
                 <ListItemText primary="Dashboard" />
               </ListItem>
-              <ListItem button>
+              <ListItem button onClick={() => {pushLink('/overview')}}>
                 <ListItemText primary="Overview" />
               </ListItem>
           </List>
