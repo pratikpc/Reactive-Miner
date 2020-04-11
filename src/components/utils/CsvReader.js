@@ -6,6 +6,7 @@ import { ReadCSV } from '../ml/utils';
 
 const CsvReader = () => {
     const { fetchCsv } = useContext(csvContext);
+    // eslint-disable-next-line
     const [delimiter, setDelimiter] = useState(',');
     const onDrop = async (accepted, rejected, links) => {
         if (accepted && accepted.length > 0) {
