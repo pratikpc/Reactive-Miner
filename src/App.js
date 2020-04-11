@@ -12,7 +12,8 @@ import { csvContext } from './components/context/csv-context';
 import Header from './components/utils/Header';
 import Dashboard from './components/utils/Dashboard';
 import Overview from './components/utils/Overview';
-import LinearRegression from "./components/ml/linreg";
+import LinearRegression from './components/ml/linreg';
+import DecisionTree from './components/decisiontree/DecisionTree';
 
 const theme = createMuiTheme(customTheme);
 
@@ -33,6 +34,9 @@ const App = () => {
         </Route>
         <Route path="/ml/linreg" exact>
           <LinearRegression/>
+        </Route>
+        <Route path="/decision-tree" exact>
+          <DecisionTree />
         </Route>
         <Redirect to="/" />
       </Switch>

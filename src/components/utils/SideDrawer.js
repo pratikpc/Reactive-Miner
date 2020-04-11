@@ -79,6 +79,9 @@ const SideDrawer = props => {
           <ListSubheader component="div">
             CLASSIFICATION
           </ListSubheader>
+              <ListItem button onClick={() => {pushLink('/decision-tree')}}>
+                <ListItemText primary="Decision Tree" />
+              </ListItem>
               <ListItem button onClick={() => {pushLink('/search')}}>
                 <ListItemText primary="PCA" />
               </ListItem>  
