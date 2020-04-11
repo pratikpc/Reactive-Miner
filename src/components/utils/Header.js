@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import logo from './logo.png';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,7 +57,7 @@ const Header = props => {
           >
             <MenuIcon />
           </IconButton>
-          <img src="logo192.png" height="30" width="30" alt="logo" />
+          <img src={logo} height="30" width="30" alt="logo" />
           <Typography variant="h6" className={classes.title}>
             &nbsp;Data Miner
           </Typography>
