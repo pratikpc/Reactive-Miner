@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Batch-A-Miner/static/css/main.bc0f64c6.chunk.css",
+    "main.js": "/Batch-A-Miner/static/js/main.3212d11e.chunk.js",
+    "main.js.map": "/Batch-A-Miner/static/js/main.3212d11e.chunk.js.map",
+    "runtime-main.js": "/Batch-A-Miner/static/js/runtime-main.bed7fcde.js",
+    "runtime-main.js.map": "/Batch-A-Miner/static/js/runtime-main.bed7fcde.js.map",
+    "static/js/2.2e464acb.chunk.js": "/Batch-A-Miner/static/js/2.2e464acb.chunk.js",
+    "static/js/2.2e464acb.chunk.js.map": "/Batch-A-Miner/static/js/2.2e464acb.chunk.js.map",
+    "index.html": "/Batch-A-Miner/index.html",
+    "precache-manifest.78a7a3fa947878faa64169223346f9a5.js": "/Batch-A-Miner/precache-manifest.78a7a3fa947878faa64169223346f9a5.js",
+    "service-worker.js": "/Batch-A-Miner/service-worker.js",
+    "static/css/main.bc0f64c6.chunk.css.map": "/Batch-A-Miner/static/css/main.bc0f64c6.chunk.css.map",
+    "static/js/2.2e464acb.chunk.js.LICENSE.txt": "/Batch-A-Miner/static/js/2.2e464acb.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bed7fcde.js",
+    "static/js/2.2e464acb.chunk.js",
+    "static/css/main.bc0f64c6.chunk.css",
+    "static/js/main.3212d11e.chunk.js"
+  ]
+}
