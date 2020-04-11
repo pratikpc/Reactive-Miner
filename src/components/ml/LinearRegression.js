@@ -1,12 +1,14 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { csvContext } from '../context/csv-context';
-import { Redirect } from 'react-router-dom';
 import * as Utils from "./utils";
 import { SplitIntoInputAndLabel, ScaleBackVal, NormalizeVar, DiposeValue } from '../../ML/utils';
 import * as LinearRegressionApply from "../../ML/linreg";
 import * as tfvis from "@tensorflow/tfjs-vis";
 import * as tf from "@tensorflow/tfjs-core";
+import Grid from '@material-ui/core/Grid';
+import CsvReader from '../utils/CsvReader';
+import CsvTable from '../utils/CsvTable';
 
 let model = null;
 const lossContainer = { name: 'show.loss', tab: 'Loss' };
@@ -25,6 +27,7 @@ async function PredictSingleValue(model, data, xCols, x, y) {
     prediction.dispose();
     return [pred, res];
 }
+
 async function Perform(csv, labelCol, columnNames, l1, l2, epochs, batchSize, validationSplit, learningRate) {
     const data = await csv.toArray();
     console.log(labelCol);
@@ -49,6 +52,7 @@ async function Perform(csv, labelCol, columnNames, l1, l2, epochs, batchSize, va
     console.log("Final Memory Usage", tf.memory());
     return model;
 }
+
 export default function LinearRegression() {
     const { csv } = React.useContext(csvContext);
     const [columnNames, setColumnNames] = React.useState([]);
@@ -71,12 +75,18 @@ export default function LinearRegression() {
         LoadColumnNames();
     }, [csv, setColumnNames]);
 
-    if (csv == null)
-        return <Redirect to="/overview" />
-    return <>
-        <Button onClick={async () => await Perform(csv, [selectedColumn], columnNames, l1, l2, epochs, batchSize, validationSplit, learningRate)} >
-            Perform
-            </Button>
-    </>
+    return (
+        <Grid container>
+            <Grid item md={6} xs={12}>
+                <CsvReader />
+                <CsvTable />
+            </Grid>
+            <Grid item md={6} xs={12}>         
+                <Button variant="contained" color="primary" onClick={async () => await Perform(csv, [selectedColumn], columnNames, l1, l2, epochs, batchSize, validationSplit, learningRate)} >
+                    Perform
+                </Button>
+            </Grid>
+        </Grid>
+    )
 }
 
