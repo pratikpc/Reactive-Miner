@@ -55,4 +55,9 @@ code {
 #tfjs-visor-container {
   color: #000000;
   font-size: 23px;
+  padding-top: 80px;
+}
+
+#tfjs-visor-container > .visor{
+  top: 64px;
 }
