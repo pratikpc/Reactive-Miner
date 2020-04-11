@@ -1,29 +1,45 @@
 import * as tf from "@tensorflow/tfjs";
 
 export function Normalize(tensor) {
-    const max = tensor.max();
-    const min = tensor.min();
-    const normalized = NormalizeVal(max, min, tensor);
-    return { max, min, value: normalized };
+    return tf.tidy(() => {
+        const max = tensor.max();
+        const min = tensor.min();
+        const normalized = NormalizeValRaw(max, min, tensor);
+        return { max, min, value: normalized };
+    });
 }
-export function NormalizeVal(max, min, value) {
-    const std = max.sub(min)
-    const num = value.sub(min)
-    const normalized = num.div(std)
-    return normalized;
+export function NormalizeValRaw(max, min, value) {
+    return tf.tidy(() => {
+        const std = max.sub(min)
+        const num = value.sub(min)
+        const normalized = num.div(std)
+        return normalized;
+    });
+}
+export function NormalizeVar(val, pred) {
+    return tf.tidy(() => { return NormalizeValRaw(val.max, val.min, pred); })
 }
 export function ScaleBackValRaw(max, min, pred) {
-    const std = max.sub(min)
-    const num = pred.mul(std)
-    const scaled = num.add(min)
-    return scaled;
+    return tf.tidy(() => {
+        const std = max.sub(min)
+        const num = pred.mul(std)
+        const scaled = num.add(min)
+        return scaled;
+    });
+}
+export function ScaleBackValWithTensor(val, pred) {
+    return tf.tidy(() => {
+        return ScaleBackValRaw(val.max, val.min, tf.tensor(pred))
+    });
 }
 export function ScaleBackVal(val, pred) {
-    return ScaleBackValRaw(val.max, val.min, pred);
+    return tf.tidy(() => {
+        return ScaleBackValRaw(val.max, val.min, pred);
+    });
 }
 
 export function InputDimSize(tensor) {
-    return tensor.shape[1];
+    return tf.tidy(() => tensor.shape[1])
 }
 export function RootMeanSquareError(yTrue, yPred) {
     return tf.tidy(() => {
@@ -34,6 +50,9 @@ export function RootMeanSquareError(yTrue, yPred) {
     });
 }
 
+export function DiposeValue(val) {
+    val.value.dispose(); val.max.dispose(); val.min.dispose();;
+}
 function ExtractInformation(raw, data) {
     const value = {
         value: [],
@@ -80,9 +99,9 @@ export async function SplitIntoInputAndLabel(data, labelCol) {
                 x_raw[colName].min = Math.min(x_raw[colName].min, value);
             }
         }
-    const x = ExtractInformation(x_raw, data)
-    const y = ExtractInformation(y_raw, data)
-
-    console.log(x, y);
-    return [x, y];
+    return tf.tidy(() => {
+        const x = ExtractInformation(x_raw, data)
+        const y = ExtractInformation(y_raw, data)
+        return [x, y];
+    });
 }

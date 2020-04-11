@@ -3,11 +3,13 @@ import * as tfcore from "@tensorflow/tfjs-core";
 import * as tfvis from "@tensorflow/tfjs-vis";
 
 export function ReadCSV(url, delimiter) {
-    const data = tfdata.csv(url, {
-        hasHeader: true,
-        delimiter: delimiter
-    });
-    return data;
+    return tfcore.tidy(() => {
+        const data = tfdata.csv(url, {
+            hasHeader: true,
+            delimiter: delimiter
+        });
+        return data;
+    })
 }
 export function SetDifference(a, b) {
     return a.filter(x => !b.includes(x));
@@ -15,9 +17,11 @@ export function SetDifference(a, b) {
 
 export function CreateTensor(data, labels) {
     const arr = [];
-    for (const label of labels)
-        arr.push(data[label]);
-    return tfcore.tensor(arr);
+    return tfcore.tidy(() => {
+        for (const label of labels)
+            arr.push(data[label]);
+        return tfcore.tensor(arr);
+    });
 }
 
 export function Zip(a, b) {
