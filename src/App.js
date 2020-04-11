@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { 
-  BrowserRouter as Router, 
+  HashRouter as Router, 
   Route, 
   Redirect, 
   Switch 
