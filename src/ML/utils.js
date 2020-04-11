@@ -98,6 +98,10 @@ export async function SplitIntoInputAndLabel(data, labelCol, normalize = true) {
 
     for (const kv of data)
         for (const colName in kv) {
+            if (allCols.length !== 0 && !allCols.includes(colName)) {
+                console.log(allCols, colName);
+                continue;
+            }
             const value = kv[colName];
             if (labelCol.includes(colName)) {
                 if (y_raw[colName] == null)
