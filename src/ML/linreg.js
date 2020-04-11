@@ -43,8 +43,6 @@ export async function Fit(
                 logs.push({
                     rms_loss: log.loss,
                     val_rms_loss: log.val_loss,
-                    rmse: log.RootMeanSquareError,
-                    val_rmse: log.val_RootMeanSquareError,
                     epoch: epoch
                 });
                 // Perform Action with All Train Logs

@@ -50,10 +50,23 @@ export function RootMeanSquareError(yTrue, yPred) {
     });
 }
 
-export function DiposeValue(val) {
-    val.value.dispose(); val.max.dispose(); val.min.dispose();;
+export function DisposeValue(val) {
+    val.value.dispose();
+    val.max.dispose(); 
+    val.min.dispose();
 }
-function ExtractInformation(raw, data) {
+export async function ConvertCSVToRawArrays(csv, labelCol, normalize = false) {
+    const data = await csv.toArray();
+    const [xT, yT] = await SplitIntoInputAndLabel(data, labelCol, normalize);
+
+    const x = await xT.value.array();
+    const y = await yT.value.array();
+
+    DisposeValue(xT);
+    DisposeValue(yT);
+    return [x, y];
+}
+function ExtractInformation(raw, data, normalize = true) {
     const value = {
         value: [],
         max: [],
@@ -68,7 +81,8 @@ function ExtractInformation(raw, data) {
         value.max.push(max);
         value.min.push(min);
         for (let i = 0; i < raw[colName].value.length; ++i) {
-            raw[colName].value[i] = (raw[colName].value[i] - min) / (max - min)
+            if (normalize)
+                raw[colName].value[i] = (raw[colName].value[i] - min) / (max - min)
             value.value[i].push(raw[colName].value[i]);
         }
     }
@@ -78,7 +92,7 @@ function ExtractInformation(raw, data) {
     return value;
 }
 
-export async function SplitIntoInputAndLabel(data, labelCol) {
+export async function SplitIntoInputAndLabel(data, labelCol, normalize = true) {
     let x_raw = {};
     let y_raw = {};
 
@@ -100,8 +114,8 @@ export async function SplitIntoInputAndLabel(data, labelCol) {
             }
         }
     return tf.tidy(() => {
-        const x = ExtractInformation(x_raw, data)
-        const y = ExtractInformation(y_raw, data)
+        const x = ExtractInformation(x_raw, data, normalize)
+        const y = ExtractInformation(y_raw, data, normalize)
         return [x, y];
     });
 }

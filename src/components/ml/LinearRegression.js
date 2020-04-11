@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { csvContext } from '../context/csv-context';
 import * as Utils from "./utils";
-import { SplitIntoInputAndLabel, ScaleBackVal, NormalizeVar, DiposeValue } from '../../ML/utils';
+import { SplitIntoInputAndLabel, ScaleBackVal, NormalizeVar, DisposeValue } from '../../ML/utils';
 import * as LinearRegressionApply from "../../ML/linreg";
 import * as tfvis from "@tensorflow/tfjs-vis";
 import * as tf from "@tensorflow/tfjs-core";
@@ -12,7 +12,6 @@ import CsvTable from '../utils/CsvTable';
 
 let model = null;
 const lossContainer = { name: 'show.loss', tab: 'Loss' };
-const accContainer = { name: 'show.accContainer', tab: 'accContainer' };
 
 async function PredictSingleValue(model, data, xCols, x, y) {
     const val_pred = Utils.CreateTensor(data, xCols);
@@ -34,7 +33,6 @@ async function Perform(csv, labelCol, columnNames, l1, l2, epochs, batchSize, va
     const [x, y] = await SplitIntoInputAndLabel(data, labelCol);
     model = await LinearRegressionApply.Fit(x.value, y.value, async (logs) => {
         await tfvis.show.history(lossContainer, logs, ["rms_loss", "val_rms_loss"]);
-        await tfvis.show.history(accContainer, logs, ["rmse", "val_rmse"]);
     }, l1, l2, epochs, batchSize, validationSplit, learningRate);
     model.summary();
     await tfvis.show.modelSummary({ name: 'Model', tab: 'Model' }, model);
@@ -46,8 +44,8 @@ async function Perform(csv, labelCol, columnNames, l1, l2, epochs, batchSize, va
 
     const [preds, x_vals, y_vals] = await LinearRegressionApply.PredictDataset(model, x, y);
     await Utils.DrawChart(x_vals, y_vals, preds);
-    DiposeValue(x);
-    DiposeValue(y);
+    DisposeValue(x);
+    DisposeValue(y);
     // model.dispose();
     console.log("Final Memory Usage", tf.memory());
     return model;
@@ -81,7 +79,7 @@ export default function LinearRegression() {
                 <CsvReader />
                 <CsvTable />
             </Grid>
-            <Grid item md={6} xs={12}>         
+            <Grid item md={6} xs={12}>
                 <Button variant="contained" color="primary" onClick={async () => await Perform(csv, [selectedColumn], columnNames, l1, l2, epochs, batchSize, validationSplit, learningRate)} >
                     Perform
                 </Button>
