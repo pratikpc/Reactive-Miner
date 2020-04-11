@@ -12,6 +12,7 @@ import { csvContext } from './components/context/csv-context';
 import Header from './components/utils/Header';
 import Dashboard from './components/utils/Dashboard';
 import Overview from './components/utils/Overview';
+import LinearRegression from "./components/ml/linreg";
 
 const theme = createMuiTheme(customTheme);
 
@@ -29,6 +30,9 @@ const App = () => {
         </Route>
         <Route path="/overview" exact>
             <Overview />
+        </Route>
+        <Route path="/ml/linreg" exact>
+          <LinearRegression/>
         </Route>
         <Redirect to="/" />
       </Switch>

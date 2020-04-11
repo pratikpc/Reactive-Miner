@@ -67,7 +67,7 @@ const SideDrawer = props => {
           <ListSubheader component="div">
             REGRESSION
           </ListSubheader>  
-          <ListItem button onClick={() => {pushLink('/store')}}>
+          <ListItem button onClick={() => {pushLink('/ml/linreg')}}>
                 <ListItemText primary="Linear Regression" />
               </ListItem>
               <ListItem button>
