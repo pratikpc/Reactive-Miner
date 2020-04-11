@@ -52,8 +52,12 @@ export function RootMeanSquareError(yTrue, yPred) {
 
 export function DisposeValue(val) {
     val.value.dispose();
-    val.max.dispose(); 
+    val.max.dispose();
     val.min.dispose();
+}
+export function DisposeValues(...vals) {
+    for (const val of vals)
+        DisposeValue(val);
 }
 export async function ConvertCSVToRawArrays(csv, labelCol, normalize = false) {
     const data = await csv.toArray();
@@ -62,8 +66,7 @@ export async function ConvertCSVToRawArrays(csv, labelCol, normalize = false) {
     const x = await xT.value.array();
     const y = await yT.value.array();
 
-    DisposeValue(xT);
-    DisposeValue(yT);
+    DisposeValues(xT, yT);
     return [x, y];
 }
 function ExtractInformation(raw, data, normalize = true) {
@@ -92,7 +95,7 @@ function ExtractInformation(raw, data, normalize = true) {
     return value;
 }
 
-export async function SplitIntoInputAndLabel(data, labelCol, normalize = true) {
+export async function SplitIntoInputAndLabel(data, labelCol, allCols = [], normalize = true) {
     let x_raw = {};
     let y_raw = {};
 
