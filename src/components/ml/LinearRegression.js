@@ -351,6 +351,7 @@ export default function LinearRegression() {
                             </form>
                         )}
                         </Formik>
+                        <Button onClick={async () => { setOut(await PredictValues(String(str).split(',').map(value => Number(value))) + " OUT"); }}>{out}</Button>
                     </div>
                 ) : (
                     <div style={{ paddingTop: '50px', textAlign: 'center' }}>
