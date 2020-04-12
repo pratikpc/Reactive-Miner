@@ -15,7 +15,7 @@ import Overview from './components/utils/Overview';
 import LinearRegression from './components/ml/LinearRegression';
 import DecisionTree from './components/decisiontree/DecisionTree';
 import HierarchicalClustering from './components/clustering/HC/HierarchicalClustering';
-import Kmeans from './components/kmeans/Kmeans';
+import Kmeans from './components/clustering/kmeans/Kmeans';
 
 
 const theme = createMuiTheme(customTheme);

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import CsvReader from '../../utils/CsvReader';
+import CsvTable from '../../utils/CsvTable';
 import './kmeans.css';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { csvContext } from '../context/csv-context';
-import { ExtractSelectedLabelsFromCSV } from '../../ML/utils';
+import { csvContext } from '../../context/csv-context';
+import { ExtractSelectedLabelsFromCSV } from '../../../ML/utils';
 
 async function kmeansFunction(csv, selectedCols) {
     const data = await ExtractSelectedLabelsFromCSV(csv, selectedCols);
@@ -21,7 +23,7 @@ const Kmeans = () => {
         async function LoadColumnNames() {
             const columns = await csv.columnNames();
             setColumnNames(columns);
-            setYcolumn(columns[columns.length - 1]);
+            // setYcolumn(columns[columns.length - 1]);
         }
         LoadColumnNames();
     }, [csv, setColumnNames]);
@@ -33,7 +35,7 @@ const Kmeans = () => {
                 <CsvTable />
             </Grid>
             <Grid item md={6} xs={12}>
-                <Button onClick={await kmeansFunction(csv, columnNames)}>Click</Button>
+                <Button onClick={kmeansFunction(csv, columnNames)}>Click</Button>
             </Grid>
         </Grid>
     );
