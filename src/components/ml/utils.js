@@ -30,7 +30,7 @@ export function Zip(a, b) {
     });
     return c;
 }
-export async function DrawChart(x, y, preds) {
+export async function DrawChart(surface,x, y, preds) {
     const series_names = [];
     const series = [];
     for (let i = 0; i < x[0].length; ++i) {
@@ -40,7 +40,5 @@ export async function DrawChart(x, y, preds) {
         series.push(Zip(x, preds).map(([x, y]) => { return { x: x[i], y }; }));
     }
     const data = { values: series, series: series_names }
-
-    const surface = { name: 'Line chart', tab: 'Plot' };
     await tfvis.render.scatterplot(surface, data);
 }

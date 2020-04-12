@@ -85,7 +85,7 @@ const SideDrawer = props => {
               <ListItem button onClick={() => {pushLink('/search')}}>
                 <ListItemText primary="PCA" />
               </ListItem>  
-              <ListItem button onClick={() => {pushLink('/videoquality')}}>
+              <ListItem button onClick={() => {pushLink('/kmeans')}}>
                 <ListItemText primary="KMeans" />
               </ListItem>
               <ListItem button>
@@ -94,6 +94,19 @@ const SideDrawer = props => {
               <ListItem button>
                 <ListItemText primary="KNN Classifier" />
               </ListItem>
+          </List>
+          <Divider />
+          <Divider />
+          <List>
+          <ListSubheader component="div">
+            CLUSTERING
+          </ListSubheader> 
+              <ListItem button onClick={() => {pushLink('/kmeans')}}>
+                <ListItemText primary="KMeans" />
+              </ListItem>
+              <ListItem button onClick={() => {pushLink('/hcluster')}}>
+                <ListItemText primary="Hierarchical Clustering" />
+              </ListItem> 
           </List>
           <Divider />
           <List>

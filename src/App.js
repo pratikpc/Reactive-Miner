@@ -15,6 +15,9 @@ import Overview from './components/utils/Overview';
 import LinearRegression from './components/ml/LinearRegression';
 import DecisionTree from './components/decisiontree/DecisionTree';
 import { SVM } from 'libsvm-js/out/wasm/libsvm';
+import HierarchicalClustering from './components/clustering/HC/HierarchicalClustering';
+import Kmeans from './components/clustering/kmeans/Kmeans';
+
 
 const theme = createMuiTheme(customTheme);
 
@@ -39,8 +42,11 @@ const App = () => {
         <Route path="/decision-tree" exact>
           <DecisionTree />
         </Route>
-        <Route path="/SVM" exact>
-          <SVM />
+        <Route path="/hcluster" exact>
+          <HierarchicalClustering />
+        </Route>
+        <Route path="/kmeans" exact>
+          <Kmeans />
         </Route>
         <Redirect to="/" />
       </Switch>

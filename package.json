@@ -14,6 +14,8 @@
     "@testing-library/user-event": "^7.2.1",
     "d3": "^5.15.1",
     "libsvm-js": "^0.2.1",
+    "formik": "^2.1.4",
+    "ml-kmeans": "^5.0.0",
     "ml5": "^0.5.0",
     "mui-datatables": "^2.14.0",
     "react": "^16.13.1",
@@ -21,7 +23,9 @@
     "react-magic-dropzone": "^1.0.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
-    "svm": "^0.1.1"
+    "svm": "^0.1.1",
+    "rollup": "^2.6.0",
+    "vega": "^5.10.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Batch-A-Miner/precache-manifest.b9178f9a9918cc1acbdb066c0691ad7e.js"
+  "/Batch-A-Miner/precache-manifest.c668d86944313b3f051434c0b779ce4e.js"
 );
 
 self.addEventListener('message', (event) => {

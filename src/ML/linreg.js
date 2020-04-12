@@ -63,6 +63,15 @@ export function Evaluate(model, x, y, args = () => { }) {
         return model.evaluate(x, y, args);
     });
 }
+export async function PredictWithScaling(model, x, y) {
+    const predT = Predict(model, x);
+    const scaledT = ScaleBackVal(y, predT);
+    console.log(await predT.array(), await scaledT.array());
+    predT.dispose();
+    const prediction = (await scaledT.array())[0];
+    scaledT.dispose();
+    return prediction;
+}
 export async function PredictDataset(model, x, y) {
     let preds_list = [];
     for (const val of await x.value.array()) {
@@ -77,10 +86,10 @@ export async function PredictDataset(model, x, y) {
         pred_dispose.dispose();
     const predsT = ScaleBackValWithTensor(y, preds_raw);
     const preds = await predsT.array();
-    
+
     const x_valsT = ScaleBackVal(x, x.value);
     const x_vals = await x_valsT.array();
-    
+
     const y_valsT = ScaleBackVal(y, y.value);
     const y_vals = await y_valsT.array();
 
