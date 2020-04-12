@@ -67,7 +67,7 @@ const SideDrawer = props => {
           <ListSubheader component="div">
             REGRESSION
           </ListSubheader>  
-          <ListItem button onClick={() => {pushLink('/linreg')}}>
+            <ListItem button onClick={() => {pushLink('/linreg')}}>
                 <ListItemText primary="Linear Regression" />
               </ListItem>
               <ListItem button>
@@ -88,8 +88,8 @@ const SideDrawer = props => {
               <ListItem button onClick={() => {pushLink('/kmeans')}}>
                 <ListItemText primary="KMeans" />
               </ListItem>
-              <ListItem button>
-                <ListItemText primary="SVM" button onClick={() => {pushLink('/svm')}} />
+              <ListItem button onClick={() => {pushLink('/svm')}}>
+                <ListItemText primary="SVM" />
               </ListItem>
               <ListItem button>
                 <ListItemText primary="KNN Classifier" />
