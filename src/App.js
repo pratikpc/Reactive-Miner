@@ -14,6 +14,7 @@ import Dashboard from './components/utils/Dashboard';
 import Overview from './components/utils/Overview';
 import LinearRegression from './components/ml/LinearRegression';
 import DecisionTree from './components/decisiontree/DecisionTree';
+import HierarchicalClustering from './components/clustering/HC/HierarchicalClustering';
 
 const theme = createMuiTheme(customTheme);
 
@@ -37,6 +38,9 @@ const App = () => {
         </Route>
         <Route path="/decision-tree" exact>
           <DecisionTree />
+        </Route>
+        <Route path="/hcluster" exact>
+          <HierarchicalClustering />
         </Route>
         <Redirect to="/" />
       </Switch>

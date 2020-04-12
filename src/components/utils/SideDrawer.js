@@ -96,6 +96,19 @@ const SideDrawer = props => {
               </ListItem>
           </List>
           <Divider />
+          <Divider />
+          <List>
+          <ListSubheader component="div">
+            CLUSTERING
+          </ListSubheader> 
+              <ListItem button onClick={() => {pushLink('/kmeans')}}>
+                <ListItemText primary="KMeans" />
+              </ListItem>
+              <ListItem button onClick={() => {pushLink('/hcluster')}}>
+                <ListItemText primary="Hierarchical Clustering" />
+              </ListItem> 
+          </List>
+          <Divider />
           <List>
           <ListSubheader component="div">
             NEURAL NETWORKS
