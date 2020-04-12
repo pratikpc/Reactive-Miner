@@ -2,7 +2,7 @@
   "name": "miner",
   "version": "0.1.0",
   "private": false,
-  "homepage": "/Batch-A-Miner/",
+  "homepage": "/Reactive-Miner/",
   "dependencies": {
     "@material-ui/core": "^4.9.9",
     "@material-ui/icons": "^4.9.1",
