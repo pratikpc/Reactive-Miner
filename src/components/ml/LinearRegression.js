@@ -5,7 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import { csvContext } from '../context/csv-context';
 import { makeStyles } from '@material-ui/core/styles';
 import * as Utils from "./utils";
-import { SplitIntoInputAndLabel, ScaleBackVal, NormalizeVar, DisposeValues } from '../../ML/utils';
+import { SplitIntoInputAndLabel, NormalizeVar, DisposeValues } from '../../ML/utils';
 import * as LinearRegressionApply from "../../ML/linreg";
 import * as tfvis from "@tensorflow/tfjs-vis";
 import * as tf from "@tensorflow/tfjs-core";
@@ -47,18 +47,26 @@ let model = null;
 const vals = { x: null, y: null };
 const lossContainer = { name: 'show.loss', tab: 'Loss' };
 
-async function PredictSingleValue(model, data, xCols, x, y) {
-    const val_pred = Utils.CreateTensor(data, xCols);
-    const pred = await val_pred.data();
-    const val_pred_norm = NormalizeVar(x, val_pred);
-    const prediction = LinearRegressionApply.Predict(model, await val_pred_norm.array());
-    const resT = ScaleBackVal(y, prediction);
-    const res = (await resT.array())[0];
-    val_pred.dispose();
-    val_pred_norm.dispose();
-    resT.dispose();
-    prediction.dispose();
-    return [pred, res];
+// async function PredictSingleValue(model, data, xCols, x, y) {
+//     const val_pred = Utils.CreateTensor(data, xCols);
+//     const pred = await val_pred.data();
+//     const val_pred_norm = NormalizeVar(x, val_pred);
+//     const prediction = LinearRegressionApply.Predict(model, await val_pred_norm.array());
+//     const resT = ScaleBackVal(y, prediction);
+//     const res = (await resT.array())[0];
+//     val_pred.dispose();
+//     val_pred_norm.dispose();
+//     resT.dispose();
+//     prediction.dispose();
+//     return [pred, res];
+// }
+
+async function GetDataFromCSV(csv, rowIdx, columns, predCol) {
+    const data = (await csv.toArray())[rowIdx];
+    const columnNames = Utils.SetDifference(columns, [predCol]);
+    console.log(columnNames, predCol);
+    const values = Object.keys(data).filter(key => columnNames.includes(key)).map(val => data[val]);
+    return values.join(',');
 }
 
 async function PredictValues(values) {
@@ -75,23 +83,20 @@ async function PredictValues(values) {
 async function Perform(csv, labelCol, columnNames, l1, l2, epochs, batchSize, validationSplit, learningRate) {
     if (vals.x != null && vals.y != null && model != null) {
         DisposeValues(vals.x, vals.y);
+        console.log("33");
         model.dispose();
+        model = null;
     }
     const data = await csv.toArray();
     console.log(labelCol);
-    // tfvis.visor().
+    Utils.RemoveNode("tfjs-visor-container");
     tfvis.visor().open();
-    const [x, y] = await SplitIntoInputAndLabel(data, labelCol, columnNames);
+    const [x, y] = SplitIntoInputAndLabel(data, labelCol, columnNames);
     model = await LinearRegressionApply.Fit(x.value, y.value, async (logs) => {
         await tfvis.show.history(lossContainer, logs, ["rms_loss", "val_rms_loss"]);
     }, l1, l2, epochs, batchSize, validationSplit, learningRate);
     model.summary();
     await tfvis.show.modelSummary({ name: 'Model', tab: 'Model' }, model);
-    {
-        const xCols = Utils.SetDifference(columnNames, labelCol);
-        const [val_pred, prediction] = await PredictSingleValue(model, data[0], xCols, x, y);
-        console.log("Prediction for", val_pred, "is", prediction);
-    }
 
     const [preds, x_vals, y_vals] = await LinearRegressionApply.PredictDataset(model, x, y);
     await Utils.DrawChart({ name: 'Line chart', tab: 'Plot' }, x_vals, y_vals, preds);
@@ -99,7 +104,6 @@ async function Perform(csv, labelCol, columnNames, l1, l2, epochs, batchSize, va
     vals.y = y;
 
     console.log("Final Memory Usage", tf.memory());
-    return model;
 }
 
 export default function LinearRegression() {
@@ -108,8 +112,9 @@ export default function LinearRegression() {
     const { csv } = useContext(csvContext);
     const [columnNames, setColumnNames] = useState([]);
     const [ycolumn, setYcolumn] = useState();
-    const [str, setStr] = useState("9,7.5,3.5");
-    const [out, setOut] = useState("Output");
+    const [predInput, setPredInput] = useState("9,7.5,3.5");
+    const [prediction, setPrediction] = useState("");
+    const [performPred, setPerformedPred] = useState(false);
     useEffect(() => {
         if (csv == null)
             return;
@@ -155,13 +160,13 @@ export default function LinearRegression() {
                                 if (values.l1 == null) {
                                     errors.l1 = 'Required';
                                 }
-                                if (values.l1 < 0 || values.l1 > 1) {
+                                if (values.l1 < 0) {
                                     errors.l1 = 'Invalid L1 value';
                                 }
                                 if (values.l2 == null) {
                                     errors.l2 = 'Required';
                                 }
-                                if (values.l2 < 0 || values.l2 > 1) {
+                                if (values.l2 < 0) {
                                     errors.l2 = 'Invalid L2 value';
                                 }
                                 if (!values.batchSize) {
@@ -170,7 +175,7 @@ export default function LinearRegression() {
                                 if (!values.validationSplit) {
                                     errors.validationSplit = 'Required';
                                 }
-                                if (values.validationSplit < 5 || values.validationSplit > 50) {
+                                if (values.validationSplit < 5) {
                                     errors.validationSplit = 'Invalid Validation Split';
                                 }
                                 if (!values.learningRate) {
@@ -194,6 +199,7 @@ export default function LinearRegression() {
                                     xCols = [...new Set(xCols)]
                                     console.log(xCols)
                                     try {
+                                        setPerformedPred(false);
                                         await Perform(
                                             csv,
                                             [values.selectedColumn],
@@ -204,9 +210,12 @@ export default function LinearRegression() {
                                             values.batchSize,
                                             values.validationSplit,
                                             values.learningRate)
+                                        setPerformedPred(true);
+                                        setPredInput(await GetDataFromCSV(csv, 0, xCols, ycolumn));
                                     } catch (err) {
                                         console.error(err);
-                                        setError('Please Recheck your Provided Parameters');
+                                        setError('Error occored in Training');
+                                        setPerformedPred(false);
                                     }
                                 }
                                 submitFormHandler(values);
@@ -372,15 +381,26 @@ export default function LinearRegression() {
                                 </form>
                             )}
                         </Formik>
-                        <TextField
-                            variant="filled"
-                            label="Predictor"
-                            name="Predictor"
-                            value={str}
-                            onChange={(_) => setStr(_.target.value)}
-                        />
-                        <Button onClick={() => tfvis.visor().open()}>Show Charts</Button>
-                        <Button onClick={async () => { setOut(await PredictValues(String(str).split(',').map(value => Number(value))) + " OUT"); }}>{out}</Button>
+                        {
+                            performPred &&
+                            <>
+                                <TextField
+                                    variant="filled"
+                                    label="Predictor"
+                                    name="Predictor"
+                                    value={predInput}
+                                    onChange={(_) => setPredInput(_.target.value)}
+                                />
+                                <Button onClick={() => tfvis.visor().open()}>Show Charts</Button>
+                                <Button onClick={async () => { setPrediction(''); setPrediction(await PredictValues(String(predInput).split(',').map(value => Number(value)))); }}>PREDICT</Button>
+                            </>
+                        }
+                        {
+                            performPred && prediction !== "" &&
+                            <Alert onClose={() => { setPrediction('') }} severity="success">
+                                The predicted value is {prediction}
+                            </Alert>
+                        }
                     </div>
                 ) : (
                         <div style={{ paddingTop: '50px', textAlign: 'center' }}>
@@ -389,7 +409,7 @@ export default function LinearRegression() {
                     )}
             </Grid>
 
-        </Grid>
+        </Grid >
     )
 }
 

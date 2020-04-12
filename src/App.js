@@ -14,7 +14,6 @@ import Dashboard from './components/utils/Dashboard';
 import Overview from './components/utils/Overview';
 import LinearRegression from './components/ml/LinearRegression';
 import DecisionTree from './components/decisiontree/DecisionTree';
-import { SVM } from 'libsvm-js/out/wasm/libsvm';
 import HierarchicalClustering from './components/clustering/HC/HierarchicalClustering';
 import Kmeans from './components/clustering/kmeans/Kmeans';
 

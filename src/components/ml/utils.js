@@ -15,6 +15,12 @@ export function SetDifference(a, b) {
     return a.filter(x => !b.includes(x));
 }
 
+export function RemoveNode(node) {
+    const nodeV = document.getElementById(node);
+    if (nodeV != null)
+        nodeV.remove();
+}
+
 export function CreateTensor(data, labels) {
     const arr = [];
     return tfcore.tidy(() => {
@@ -30,7 +36,7 @@ export function Zip(a, b) {
     });
     return c;
 }
-export async function DrawChart(surface,x, y, preds) {
+export async function DrawChart(surface, x, y, preds) {
     const series_names = [];
     const series = [];
     for (let i = 0; i < x[0].length; ++i) {
