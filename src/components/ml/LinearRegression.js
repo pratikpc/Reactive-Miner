@@ -150,7 +150,7 @@ export default function LinearRegression() {
                                 batchSize: 16,
                                 validationSplit: 10,
                                 learningRate: 0.01,
-                                epochs: 10,
+                                epochs: 50,
                             }}
                             validate={values => {
                                 const errors = {};
