@@ -6,12 +6,28 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { csvContext } from '../../context/csv-context';
 import { ExtractSelectedLabelsFromCSV } from '../../../ML/utils';
+import * as ml5 from 'ml5';
 
 async function kmeansFunction(csv, selectedCols) {
     const data = await ExtractSelectedLabelsFromCSV(csv, selectedCols);
     console.log(selectedCols);
     console.log('Function called', data);
+    const options = {
+        k: 3,
+        maxIter: 4,
+        threshold: 0.5,
+    };
+    // Initialize the magicFeature
+    const kmeans = ml5.kmeans(data, options, clustersCalculated);
+
+    // When the model is loaded
+    function clustersCalculated() {
+        console.log('Points Clustered!');
+        console.log(kmeans.dataset);
+    }
+    console.log(kmeans);
 }
+
 
 const Kmeans = () => {
 
@@ -35,7 +51,7 @@ const Kmeans = () => {
                 <CsvTable />
             </Grid>
             <Grid item md={6} xs={12}>
-                <Button onClick={kmeansFunction(csv, columnNames)}>Click</Button>
+                <Button onClick={async () => await kmeansFunction(csv, columnNames)}>Click</Button>
             </Grid>
         </Grid>
     );
