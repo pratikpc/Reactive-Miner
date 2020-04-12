@@ -579,5 +579,4 @@ figue.Node.prototype.buildDendogram = function (sep, balanced,withLabel,withCent
 //     return true;
 // }
 
-// export default figue;
-module.exports = figue;
+export default figue;

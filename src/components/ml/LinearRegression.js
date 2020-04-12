@@ -136,6 +136,7 @@ export default function LinearRegression() {
                             </Alert>
                         )}
                         <Formik
+                            enableReinitialize
                             initialValues={{
                                 xColumns: columnNames,
                                 selectedColumn: ycolumn,

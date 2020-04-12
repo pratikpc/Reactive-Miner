@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.ddg-wrapper {
+	text-align: center;
+	overflow-x: auto;
+	white-space: nowrap;
+	width: 100vw;
+	margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 1024px) {
+	.ddg-wrapper {
+	  width: calc(100vw - 275px);
+	}
+}
+
+.ddg {
+	display: inline-block;
+	width: max-content;
+}	
