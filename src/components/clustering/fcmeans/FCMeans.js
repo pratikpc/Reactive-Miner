@@ -272,13 +272,6 @@ export default function FCMeans() {
                             </div>
                         )}
                 </Grid>
-                {csv && label && (
-                    <Paper style={{ width: '100%', margin: '20px', padding: '20px', textAlign: 'center', backgroundColor: '#000000' }}>
-                        <Typography variant="h4" gutterBottom>
-                            Dendogram
-                        </Typography>
-                    </Paper>
-                )}
             </Grid>
         </div >
     )

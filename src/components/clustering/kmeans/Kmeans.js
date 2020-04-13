@@ -7,7 +7,6 @@ import CsvReader from '../../utils/CsvReader';
 import CsvTable from '../../utils/CsvTable';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -30,6 +29,13 @@ const useStyles = makeStyles(theme => ({
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
+    },
+    descDiv: {
+        background: '#505050', 
+        width: '100%', 
+        padding: '15px',
+        fontSize: '14px',
+        margin: '10px',
     },
     form: {
         width: '90%', // Fix IE 11 issue.
@@ -144,8 +150,11 @@ export default function Kmeans() {
                                     <form className={classes.form} onSubmit={handleSubmit}>
                                         <Grid container spacing={1}>
                                             <Grid item xs={12}>
+                                                <Paper className={classes.descDiv}>
+                                                    Select the number of clusters
+                                                </Paper>
                                                 <TextField id="standard-basic"
-                                                    style={{ width: '90%' }}
+                                                    style={{ marginLeft: '10px', width: '90%' }}
                                                     label="k" 
                                                     fullWidth
                                                     onChange={handleChange}
@@ -169,7 +178,7 @@ export default function Kmeans() {
                                                 className={classes.submit}
                                                 disabled={isSubmitting}
                                             >
-                                                CLUSTER DATA AND DISPLAY DENDOGRAM
+                                                RUN AND DISPLAY SCATTERPLOT
                                     </Button>
                                         </div>
                                     </form>

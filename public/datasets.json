@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Dataset",
+        "url": "dt.csv"
+    },
+    {
+        "name": "Dataset 2",
+        "url": "KNN Dataset.csv"
+    },
+    {
+        "name": "Dataset 3",
+        "url": "Linear Regression.csv"
+    }
+]
