@@ -106,9 +106,6 @@ export default function FCMeans() {
                                 }}
                                 validate={values => {
                                     const errors = {};
-                                    if (!values.label) {
-                                        errors.label = 'Required';
-                                    }
                                     if (!values.epsilon) {
                                         errors.epsilon = 'Required';
                                     }
@@ -118,7 +115,6 @@ export default function FCMeans() {
                                     if (values.k < 2 && values.k > 9) {
                                         errors.k = 'Invalid number of clusters'
                                     }
-
                                     return errors;
                                 }}
                                 onSubmit={async (values) => {
