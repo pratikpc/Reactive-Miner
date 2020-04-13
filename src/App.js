@@ -17,6 +17,7 @@ import DecisionTree from './components/decisiontree/DecisionTree';
 import HierarchicalClustering from './components/clustering/HC/HierarchicalClustering';
 import Kmeans from './components/clustering/kmeans/Kmeans';
 import Svm from './components/svm/Svm';
+import KNN from './components/knn/KNN';
 
 
 const theme = createMuiTheme(customTheme);
@@ -50,6 +51,9 @@ const App = () => {
         </Route>
         <Route path="/svm" exact>
           <Svm />
+        </Route>
+        <Route path="/knn" exact>
+          <KNN />
         </Route>
         <Redirect to="/" />
       </Switch>

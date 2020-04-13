@@ -91,7 +91,7 @@ const SideDrawer = props => {
               <ListItem button onClick={() => {pushLink('/svm')}}>
                 <ListItemText primary="SVM" />
               </ListItem>
-              <ListItem button>
+              <ListItem button onClick={() => {pushLink('/knn')}}>
                 <ListItemText primary="KNN Classifier" />
               </ListItem>
           </List>

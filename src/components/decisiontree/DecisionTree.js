@@ -19,6 +19,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import FunctionsIcon from '@material-ui/icons/Functions';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import TitleBar from '../utils/TitleBar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -199,6 +200,7 @@ const DecisionTree = () => {
     return (
         <Grid container>
             <Grid item md={6} xs={12}>
+                <TitleBar name="Decision Tree" tags={['Classification', 'Tree']} />
                 <CsvReader />
                 <CsvTable />
             </Grid>

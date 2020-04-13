@@ -52,6 +52,19 @@ code {
   }
 }
 
+.tag {
+    display: inline-block;
+    color: #000000;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    background: rgb(247, 250, 251);
+    padding: 3px 11px;
+    border-radius: 2px;
+}
+
+
 #tfjs-visor-container {
   color: #000000;
   font-size: 23px;
