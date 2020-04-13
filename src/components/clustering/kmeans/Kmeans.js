@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Paper from '@material-ui/core/Paper';
 import { kmeans } from '../fcmeans/figue';
 import { ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
 import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../linreg/utils';
@@ -53,7 +52,7 @@ async function PerformKMeans(csv, k, labels, xIdx, yIdx) {
     console.log(res);
     const clusters = ConvertClusterIconsToData(res.assignments, k, data);
     VisorStop();
-    const chart = GenerateChartForCluster(res.centroids,clusters, xIdx, yIdx);
+    const chart = GenerateChartForCluster(res.centroids, clusters, xIdx, yIdx);
     await DrawScatterPlot(chart);
 }
 export default function Kmeans() {
@@ -79,9 +78,9 @@ export default function Kmeans() {
             <Grid container>
                 <Grid item md={6} xs={12}>
                     <TitleBar name="K Means Clustering" tags={['Clustering', 'K-Means', 'ScatterPlot']} />
-                <p>
-                    <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
-                </p>
+                    <p>
+                        <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
+                    </p>
                     <CsvReader />
                     <CsvTable />
                 </Grid>
@@ -109,9 +108,6 @@ export default function Kmeans() {
                                 }}
                                 validate={values => {
                                     const errors = {};
-                                    if (!values.label) {
-                                        errors.label = 'Required';
-                                    }
                                     if (values.linkage < 0 || values.linkage > 2) {
                                         console.log("haha")
                                         errors.linkage = 'Required';
