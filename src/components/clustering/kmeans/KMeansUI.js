@@ -1,0 +1,321 @@
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { Formik } from 'formik';
+import { csvContext } from '../../context/csv-context';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import CsvReader from '../../utils/CsvReader';
+import CsvTable from '../../utils/CsvTable';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Alert from '@material-ui/lab/Alert';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
+import { fcmeans,kmeans } from './figue.js';
+import { ExtractSelectedLabelsFromCSV, FindArgMax, ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
+import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../ml/utils';
+import { Link } from '@material-ui/core';
+
+const useStyles = makeStyles(theme => ({
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        width: '80%',
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+    form: {
+        width: '90%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+        marginLeft: '20px',
+    },
+    submit: {
+        width: '100px',
+    },
+}));
+
+async function PerformFCMeans(csv, k, epsilon, fuzziness, labels, xIdx, yIdx) {
+    const data = await ConvertCSVToSingleArray(csv, labels);
+    const res = kmeans(k, data/*, epsilon, fuzziness*/)
+    console.log(res);
+    const clusters = ConvertClusterIconsToData(res.assignments, k, data);
+    VisorStop();
+    const chart = GenerateChartForCluster(res.centroids,clusters, xIdx, yIdx);
+    await DrawScatterPlot(chart);
+}
+export default function FCMeans() {
+    const classes = useStyles();
+    const [error, setError] = useState('')
+    const { csv } = useContext(csvContext);
+    const [columnNames, setColumnNames] = useState([]);
+    const [label, setLabel] = useState();
+
+    useEffect(() => {
+        if (csv == null)
+            return;
+        async function LoadColumnNames() {
+            const columns = await csv.columnNames();
+            setColumnNames(columns);
+            setLabel(columns[0]);
+        }
+        LoadColumnNames();
+    }, [csv, setColumnNames]);
+
+    return (
+        <div>
+            <Grid container>
+                <Grid item md={6} xs={12}>
+                <p>
+                    <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
+                </p>
+                    <CsvReader />
+                    <CsvTable />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                    {csv && columnNames && label ? (
+                        <div style={{ padding: '10px' }}>
+                            {error && (
+                                <Alert onClose={() => setError('')} severity="error">
+                                    {error}
+                                </Alert>
+                            )}
+                            <Formik
+                                enableReinitialize
+                                initialValues={{
+                                    vectors: columnNames,
+                                    label: label,
+                                    linkage: 0,
+                                    distance: 0,
+                                    withLabel: true,
+                                    withCentroid: false,
+                                    withDistance: false,
+                                    balanced: true,
+                                    space: 5
+                                }}
+                                validate={values => {
+                                    const errors = {};
+                                    if (!values.label) {
+                                        errors.label = 'Required';
+                                    }
+                                    if (values.linkage < 0 || values.linkage > 2) {
+                                        console.log("haha")
+                                        errors.linkage = 'Required';
+                                    }
+                                    if (values.distance < 0 || values.distance > 2) {
+                                        errors.distance = 'Required';
+                                    }
+                                    if (values.space !== 3 && values.space !== 5 && values.space !== 7 && values.space !== 9) {
+                                        errors.space = 'Invalid value'
+                                    }
+
+                                    return errors;
+                                }}
+                                onSubmit={async (values, { setSubmitting }) => {
+                                    setError("");
+                                    try {
+                                        // TODO: FCMeans    
+                                        const labels = [...(new Set([values.label, ...values.vectors]))];
+                                        const k = 3;
+                                        const epsilon = 0.6;
+                                        const fuzziness = 2;
+                                        const xIdx = 0;
+                                        const yIdx = 1;
+                                        await PerformFCMeans(csv, k, epsilon, fuzziness, labels, xIdx, yIdx);
+                                    } catch (err) {
+                                        console.error(err);
+                                        setError('Please Recheck your Provided Parameters');
+                                    }
+                                }}
+                            >{({
+                                values,
+                                errors,
+                                touched,
+                                handleChange,
+                                handleBlur,
+                                handleSubmit,
+                                isSubmitting,
+                                setFieldValue,
+                            }) => (
+                                    <form className={classes.form} onSubmit={handleSubmit}>
+                                        <Grid container spacing={1}>
+                                            <Grid item xs={12}>
+                                                <Paper style={{ backgroundColor: 'black', padding: '20px' }}>
+                                                    Select the numerical attributes
+                                            </Paper>
+                                                <Grid container spacing={1}>
+                                                    {columnNames.map((column, index) =>
+                                                        <Grid item xs={12} key={index}>
+                                                            {column !== values.label && (
+                                                                <FormControlLabel
+                                                                    control={<Checkbox
+                                                                        checked={values.vectors.includes(column)}
+                                                                        color="default"
+                                                                        name={column}
+                                                                        onChange={(event) => {
+                                                                            let array = values.vectors;
+                                                                            if (array.includes(event.target.name)) {
+                                                                                const newArray = array.filter((col) => col !== event.target.name);
+                                                                                setFieldValue('vectors', newArray, false)
+                                                                            } else {
+                                                                                array.push(event.target.name)
+                                                                                setFieldValue('vectors', array, false)
+                                                                            }
+                                                                        }}
+                                                                    />}
+                                                                    label={column}
+                                                                />
+                                                            )}
+                                                        </Grid>
+                                                    )}
+                                                </Grid>
+                                            </Grid>
+                                            <Grid style={{ padding: '10px' }} item xs={12}>
+                                                <hr />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <TextField id="select"
+                                                    label="Label" select
+                                                    fullWidth
+                                                    value={values.label}
+                                                    name="label"
+                                                    onChange={handleChange}
+                                                    variant="filled"
+                                                >
+                                                    {columnNames.map((column, index) =>
+                                                        <MenuItem key={index} value={column}>{column}</MenuItem>
+                                                    )}
+                                                </TextField>
+                                                <FormHelperText>Select a Label</FormHelperText>
+                                            </Grid>
+                                            <Grid style={{ padding: '10px' }} item xs={12}>
+                                                <hr />
+                                            </Grid>
+                                            <Grid style={{ marginTop: '10px' }} item xs={6}>
+                                                <FormControl component="fieldset">
+                                                    <FormLabel component="legend">Linkage</FormLabel>
+                                                    <RadioGroup aria-label="linkage" name="linkage" value={values.linkage} onChange={(event) => {
+                                                        setFieldValue('linkage', parseInt(event.target.value), false)
+                                                    }}>
+                                                        <FormControlLabel value={0} control={<Radio />} label="Single-Linkage" />
+                                                        <FormControlLabel value={1} control={<Radio />} label="Complete-Linkage" />
+                                                        <FormControlLabel value={2} control={<Radio />} label="Average-Linkage" />
+                                                    </RadioGroup>
+                                                </FormControl>
+                                                <div style={{ margin: "10px", color: "red" }}>
+                                                    {errors.linkage && touched.linkage && errors.linkage}
+                                                </div>
+                                            </Grid>
+                                            <Grid style={{ marginTop: '10px' }} item xs={6}>
+                                                <FormControl component="fieldset">
+                                                    <FormLabel component="legend">Distance</FormLabel>
+                                                    <RadioGroup aria-label="distance" name="distance" value={values.distance} onChange={(event) => {
+                                                        setFieldValue('distance', parseInt(event.target.value), false)
+                                                    }}>
+                                                        <FormControlLabel value={0} control={<Radio />} label="Euclidian" />
+                                                        <FormControlLabel value={1} control={<Radio />} label="Manhattan" />
+                                                        <FormControlLabel value={2} control={<Radio />} label="Maximum" />
+                                                    </RadioGroup>
+                                                </FormControl>
+                                                <div style={{ margin: "10px", color: "red" }}>
+                                                    {errors.distance && touched.distance && errors.distance}
+                                                </div>
+                                            </Grid>
+                                            <Grid style={{ padding: '10px' }} item xs={12}>
+                                                <hr />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <FormControlLabel
+                                                    control={<Checkbox checked={values.withLabel} onChange={handleChange} name="withLabel" />}
+                                                    label="Show Labels"
+                                                />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <FormControlLabel
+                                                    control={<Checkbox checked={values.withDistance} onChange={handleChange} name="withDistance" />}
+                                                    label="Show Distance"
+                                                />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <FormControlLabel
+                                                    control={<Checkbox checked={values.withCentroid} onChange={handleChange} name="withCentroid" />}
+                                                    label="Show Centroid"
+                                                />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <FormControlLabel
+                                                    control={<Checkbox checked={values.balanced} onChange={handleChange} name="balanced" />}
+                                                    label="Balance Dendogram"
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <TextField id="select"
+                                                    style={{ width: '90%' }}
+                                                    label="Space" select
+                                                    fullWidth
+                                                    value={values.space}
+                                                    name="space"
+                                                    onChange={(event) => {
+                                                        setFieldValue('space', parseInt(event.target.value), true)
+                                                    }}
+                                                    variant="filled"
+                                                >
+                                                    <MenuItem value={3}>3</MenuItem>
+                                                    <MenuItem value={5}>5</MenuItem>
+                                                    <MenuItem value={7}>7</MenuItem>
+                                                    <MenuItem value={9}>9</MenuItem>
+                                                </TextField>
+                                                <FormHelperText>Minimum spacing between nodes</FormHelperText>
+                                                <div style={{ margin: "10px", color: "red" }}>
+                                                    {errors.space && touched.space && errors.space}
+                                                </div>
+                                            </Grid>
+
+                                        </Grid>
+                                        <div style={{ margin: '10px', textAlign: 'center' }}>
+                                            <Button
+                                                style={{ width: '100%' }}
+                                                type="submit"
+                                                fullWidth
+                                                variant="contained"
+                                                color="primary"
+                                                className={classes.submit}
+                                                disabled={isSubmitting}
+                                            >
+                                                CLUSTER DATA AND DISPLAY DENDOGRAM
+                                    </Button>
+                                        </div>
+                                    </form>
+                                )}
+                            </Formik>
+                        </div>
+                    ) : (
+                            <div style={{ paddingTop: '50px', textAlign: 'center' }}>
+                                Please select a dataset
+                            </div>
+                        )}
+                </Grid>
+                {csv && label && (
+                    <Paper style={{ width: '100%', margin: '20px', padding: '20px', textAlign: 'center', backgroundColor: '#000000' }}>
+                        <Typography variant="h4" gutterBottom>
+                            Dendogram
+                        </Typography>
+                    </Paper>
+                )}
+            </Grid>
+        </div >
+    )
+}
