@@ -18,6 +18,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -43,9 +44,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-let model = null;
-const vals = { x: null, y: null };
-const lossContainer = { name: 'show.loss', tab: 'Loss' };
+const lin_reg_cache = { inputs: null, labels: null, model: null };
 
 // async function PredictSingleValue(model, data, xCols, x, y) {
 //     const val_pred = Utils.CreateTensor(data, xCols);
@@ -64,44 +63,47 @@ const lossContainer = { name: 'show.loss', tab: 'Loss' };
 async function GetDataFromCSV(csv, rowIdx, columns, predCol) {
     const data = (await csv.toArray())[rowIdx];
     const columnNames = Utils.SetDifference(columns, [predCol]);
-    console.log(columnNames, predCol);
     const values = Object.keys(data).filter(key => columnNames.includes(key)).map(val => data[val]);
     return values.join(',');
 }
 
-async function PredictValues(values) {
-    const valuesT = tf.tensor(values);
-    const valuesNormT = NormalizeVar(vals.x, valuesT)
-    valuesT.dispose();
-    const valuesNorm = await valuesNormT.array();
-    valuesNormT.dispose();
-    const pred = await LinearRegressionApply.PredictWithScaling(model, valuesNorm, vals.y);
-    console.log(pred);
+async function PredictValues(model, input) {
+    const inputT = tf.tensor(input);
+    const inputNormT = NormalizeVar(lin_reg_cache.inputs, inputT)
+    inputT.dispose();
+    const inputNorm = await inputNormT.array();
+    inputNormT.dispose();
+    const pred = await LinearRegressionApply.PredictWithScaling(model, inputNorm, lin_reg_cache.labels);
     return pred;
 }
 
-async function Perform(csv, labelCol, columnNames, l1, l2, epochs, batchSize, validationSplit, learningRate) {
-    if (vals.x != null && vals.y != null && model != null) {
-        DisposeValues(vals.x, vals.y);
-        console.log("33");
-        model.dispose();
-        model = null;
+async function Perform(csv, labelCols, inputCols, l1, l2, epochs, batchSize, validationSplit, learningRate) {
+    if (lin_reg_cache.inputs != null && lin_reg_cache.labels != null && lin_reg_cache.model != null) {
+        DisposeValues(lin_reg_cache.inputs, lin_reg_cache.labels);
+        lin_reg_cache.model.dispose();
+        lin_reg_cache.model = null;
     }
-    const data = await csv.toArray();
-    console.log(labelCol);
-    Utils.RemoveNode("tfjs-visor-container");
+    const inputData = await csv.toArray();
+    Utils.VisorStop();
     tfvis.visor().open();
-    const [x, y] = SplitIntoInputAndLabel(data, labelCol, columnNames);
-    model = await LinearRegressionApply.Fit(x.value, y.value, async (logs) => {
+    const [input, label] = SplitIntoInputAndLabel(inputData, labelCols, inputCols);
+    const lossContainer = { name: 'show.loss', tab: 'Loss' };
+    const model = await LinearRegressionApply.Fit(input.value, label.value, async (logs) => {
         await tfvis.show.history(lossContainer, logs, ["rms_loss", "val_rms_loss"]);
     }, l1, l2, epochs, batchSize, validationSplit, learningRate);
     model.summary();
     await tfvis.show.modelSummary({ name: 'Model', tab: 'Model' }, model);
 
-    const [preds, x_vals, y_vals] = await LinearRegressionApply.PredictDataset(model, x, y);
-    await Utils.DrawChart({ name: 'Line chart', tab: 'Plot' }, x_vals, y_vals, preds);
-    vals.x = x;
-    vals.y = y;
+    {
+        const [preds, x_vals, y_vals] = await LinearRegressionApply.PredictDataset(model, input, label);
+        const chart = Utils.GemerateChartForLinearRegression('Results', 'Plot', x_vals, y_vals, preds)
+        await Utils.DrawScatterPlot(chart);
+    }
+    lin_reg_cache.inputs = input;
+    lin_reg_cache.labels = label;
+    lin_reg_cache.model = model;
+    lin_reg_cache.inputs.value.dispose();
+    lin_reg_cache.labels.value.dispose();
 
     console.log("Final Memory Usage", tf.memory());
 }
@@ -129,6 +131,9 @@ export default function LinearRegression() {
     return (
         <Grid container>
             <Grid item md={6} xs={12}>
+                <p>
+                    <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
+                </p>
                 <CsvReader />
                 <CsvTable />
             </Grid>
@@ -197,8 +202,8 @@ export default function LinearRegression() {
                                 const submitFormHandler = async values => {
                                     let xCols = [...values.xColumns, values.selectedColumn]
                                     xCols = [...new Set(xCols)]
-                                    console.log(xCols)
                                     try {
+                                        setError("");
                                         setPerformedPred(false);
                                         await Perform(
                                             csv,
@@ -392,7 +397,12 @@ export default function LinearRegression() {
                                     onChange={(_) => setPredInput(_.target.value)}
                                 />
                                 <Button onClick={() => tfvis.visor().open()}>Show Charts</Button>
-                                <Button onClick={async () => { setPrediction(''); setPrediction(await PredictValues(String(predInput).split(',').map(value => Number(value)))); }}>PREDICT</Button>
+                                <Button onClick={async () => {
+                                    setPrediction('');
+                                    const inputs = String(predInput).split(',').map(value => Number(value));
+                                    const predictedValue = await PredictValues(lin_reg_cache.model, inputs);
+                                    setPrediction(predictedValue);
+                                }}>PREDICT</Button>
                             </>
                         }
                         {
