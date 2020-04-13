@@ -4,6 +4,7 @@ import TitleBar from '../utils/TitleBar';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import { csvContext } from '../context/csv-context';
+import LoadDataset from '../utils/LoadDataset';
 import { makeStyles } from '@material-ui/core/styles';
 import * as Utils from "./utils";
 import { SplitIntoInputAndLabel, NormalizeVar, DisposeValues } from '../../ML/utils';
@@ -140,6 +141,7 @@ export default function LinearRegression() {
                 <CsvTable />
             </Grid>
             <Grid item md={6} xs={12}>
+                <LoadDataset />
                 {csv && ycolumn ? (
                     <div style={{ padding: '10px' }}>
                         {error && (

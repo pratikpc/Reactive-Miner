@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Formik } from 'formik';
 import { csvContext } from '../../context/csv-context';
+import LoadDataset from '../../utils/LoadDataset';
 import { makeStyles } from '@material-ui/core/styles';
 import TitleBar from '../../utils/TitleBar';
 import CsvReader from '../../utils/CsvReader';
 import CsvTable from '../../utils/CsvTable';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import Alert from '@material-ui/lab/Alert';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Paper from '@material-ui/core/Paper';
 import { kmeans } from '../fcmeans/figue';
 import { ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
 import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../linreg/utils';
@@ -31,6 +31,13 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    descDiv: {
+        background: '#505050', 
+        width: '100%', 
+        padding: '15px',
+        fontSize: '14px',
+        margin: '10px',
+    },
     form: {
         width: '90%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
@@ -47,7 +54,7 @@ async function PerformKMeans(csv, k, labels, xIdx, yIdx) {
     console.log(res);
     const clusters = ConvertClusterIconsToData(res.assignments, k, data);
     VisorStop();
-    const chart = GenerateChartForCluster(res.centroids,clusters, xIdx, yIdx);
+    const chart = GenerateChartForCluster(res.centroids, clusters, xIdx, yIdx);
     await DrawScatterPlot(chart);
 }
 export default function Kmeans() {
@@ -73,13 +80,14 @@ export default function Kmeans() {
             <Grid container>
                 <Grid item md={6} xs={12}>
                     <TitleBar name="K Means Clustering" tags={['Clustering', 'K-Means', 'ScatterPlot']} />
-                <p>
-                    <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
-                </p>
+                    <p>
+                        <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
+                    </p>
                     <CsvReader />
                     <CsvTable />
                 </Grid>
                 <Grid item md={6} xs={12}>
+                    <LoadDataset />
                     {csv && columnNames && label ? (
                         <div style={{ padding: '10px' }}>
                             {error && (
@@ -103,9 +111,6 @@ export default function Kmeans() {
                                 }}
                                 validate={values => {
                                     const errors = {};
-                                    if (!values.label) {
-                                        errors.label = 'Required';
-                                    }
                                     if (values.linkage < 0 || values.linkage > 2) {
                                         console.log("haha")
                                         errors.linkage = 'Required';
@@ -144,8 +149,11 @@ export default function Kmeans() {
                                     <form className={classes.form} onSubmit={handleSubmit}>
                                         <Grid container spacing={1}>
                                             <Grid item xs={12}>
+                                                <Paper className={classes.descDiv}>
+                                                    Select the number of clusters
+                                                </Paper>
                                                 <TextField id="standard-basic"
-                                                    style={{ width: '90%' }}
+                                                    style={{ marginLeft: '10px', width: '90%' }}
                                                     label="k" 
                                                     fullWidth
                                                     onChange={handleChange}
@@ -169,7 +177,7 @@ export default function Kmeans() {
                                                 className={classes.submit}
                                                 disabled={isSubmitting}
                                             >
-                                                CLUSTER DATA AND DISPLAY DENDOGRAM
+                                                RUN AND DISPLAY SCATTERPLOT
                                     </Button>
                                         </div>
                                     </form>

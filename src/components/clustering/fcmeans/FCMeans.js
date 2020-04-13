@@ -6,6 +6,7 @@ import TitleBar from '../../utils/TitleBar';
 import Grid from '@material-ui/core/Grid';
 import CsvReader from '../../utils/CsvReader';
 import CsvTable from '../../utils/CsvTable';
+import LoadDataset from '../../utils/LoadDataset';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
@@ -89,6 +90,7 @@ export default function FCMeans() {
                     <CsvTable />
                 </Grid>
                 <Grid item md={6} xs={12}>
+                    <LoadDataset />
                     {csv && columnNames && label ? (
                         <div style={{ padding: '10px' }}>
                             {error && (
@@ -106,9 +108,6 @@ export default function FCMeans() {
                                 }}
                                 validate={values => {
                                     const errors = {};
-                                    if (!values.label) {
-                                        errors.label = 'Required';
-                                    }
                                     if (!values.epsilon) {
                                         errors.epsilon = 'Required';
                                     }
@@ -118,7 +117,6 @@ export default function FCMeans() {
                                     if (values.k < 2 && values.k > 9) {
                                         errors.k = 'Invalid number of clusters'
                                     }
-
                                     return errors;
                                 }}
                                 onSubmit={async (values) => {
@@ -272,13 +270,6 @@ export default function FCMeans() {
                             </div>
                         )}
                 </Grid>
-                {csv && label && (
-                    <Paper style={{ width: '100%', margin: '20px', padding: '20px', textAlign: 'center', backgroundColor: '#000000' }}>
-                        <Typography variant="h4" gutterBottom>
-                            Dendogram
-                        </Typography>
-                    </Paper>
-                )}
             </Grid>
         </div >
     )

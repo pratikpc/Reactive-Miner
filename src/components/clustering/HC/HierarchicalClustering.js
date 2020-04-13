@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Formik } from 'formik';
 import { csvContext } from '../../context/csv-context';
+import LoadDataset from '../../utils/LoadDataset';
 import { makeStyles } from '@material-ui/core/styles';
 import TitleBar from '../../utils/TitleBar';
 import figue from './hc-hook';
@@ -75,7 +76,8 @@ const HierarchicalClustering = () => {
                     <CsvReader />
                     <CsvTable />
                 </Grid>
-                <Grid item md={6} xs={12}>                    
+                <Grid item md={6} xs={12}>    
+                    <LoadDataset />                
                     {csv && columnNames && label ? (
                         <div style={{ padding: '10px' }}>
                         {error && (
