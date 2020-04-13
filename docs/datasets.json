@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Cateogorical",
+        "url": "dt.csv"
+    },
+    {
+        "name": "Quantitative 1",
+        "url": "KNN Dataset.csv"
+    },
+    {
+        "name": "Quantitative 2",
+        "url": "Linear Regression.csv"
+    }
+]
