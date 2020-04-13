@@ -5,14 +5,14 @@ function parseData(data) {
     let vectors = [];
     for (var i = 0 ; i < data.length ; i++) {
         labels[i] = data[i]['company'] ;
-        vectors[i] = [ data[i]['size'] , data[i]['revenue'], 78] ;
+        vectors[i] = [ data[i]['size'] , data[i]['revenue']] ;
     }
     return {'labels': labels , 'vectors': vectors} ;
 }
 
 function test() {
     let datast = [ 
-        {'company': 'Microsoft' , 'size': 91259, 'revenue': 60420, 'test': 'abc'},
+        {'company': 'Microsoft' , 'size': 91259, 'revenue': 60420},
         {'company': 'IBM' , 'size': 400000, 'revenue': 98787},
         {'company': 'Skype' , 'size': 700, 'revenue': 716},
         {'company': 'SAP' , 'size': 48000, 'revenue': 11567},

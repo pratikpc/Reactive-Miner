@@ -29,16 +29,13 @@ const CsvTable = () => {
                     title={"Data Table"}
                     data={data}
                     columns={columns}
-                    options={
-
-                        options}
+                    options={options}
                 />
             ) : (
                     <div style={{ textAlign: 'center' }}>
                         <h3>No Data Found</h3>
                     </div>
                 )}
-
         </div>
     );
 }
