@@ -1,4 +1,5 @@
 import * as tf from "@tensorflow/tfjs";
+var nm = require('feature-scaling')
 
 export function Normalize(tensor) {
     return tf.tidy(() => {
@@ -97,12 +98,18 @@ export function ExtractSelectedLabels(data, selectedCols = []) {
     }
     return results;
 }
+
+
+
 export async function ConvertCSVToRawArrays(csv, labelCol, allCols = [], normalize = false) {
     const data = await csv.toArray();
+    // const data = nm(dat)
+    // console.log(data)
     const [xT, yT] = SplitIntoInputAndLabel(data, labelCol, allCols, normalize);
 
     const x = await xT.value.array();
     const y = await yT.value.array();
+    // console.log(x);
 
     DisposeValues(xT, yT);
     return [x, y];

@@ -16,7 +16,6 @@ const Overview = () => {
   useEffect(() => {
     if (csv == null)
       return;
-    console.log(csv);
     async function LoadColumnNames() {
       const columns = await csv.columnNames();
       setColumnNames(columns);
@@ -25,10 +24,62 @@ const Overview = () => {
     LoadColumnNames();
   }, [csv, setColumnNames]);
 
+  function scaleBetween(unscaledNum, minAllowed, maxAllowed, min, max) {
+    return (maxAllowed - minAllowed) * (unscaledNum - min) / (max - min) + minAllowed;
+  }
+
+
   const trainModel = async (csv, labelColumn, columnNames) => {
-    let [data, labels] = await ConvertCSVToRawArrays(csv, labelColumn, columnNames);
-    labels = labels.map(label => label[0]);
+    let [data, y] = await ConvertCSVToRawArrays(csv, labelColumn, columnNames);
+    y = y.map(label => label[0]);
+    console.log(data)
+    var scaled = Array(data.length).fill().map(() => Array(data[0].length).fill(0));
+
+    for(let i=0;i< data[0].length;i++){
+      var unscaledNums=[];
+
+      for(let j=0;j< data.length;j++){
+        unscaledNums.push(data[j][i]);
+      }
+      
+      var maxRange = Math.max.apply(Math, unscaledNums);
+      var minRange = Math.min.apply(Math, unscaledNums);
+
+      for (var l = 0; l < unscaledNums.length; l++) {
+        var unscaled = unscaledNums[l];
+        scaled[l][i] = scaleBetween(unscaled, -3, 3, minRange, maxRange);
+      }
+    }
+
+    var labels = new Array(y.length)
+
+    var maxRange = Math.max.apply(Math, y);
+    var minRange = Math.min.apply(Math, y);
+
+    for (let i = 0; i < y.length; i++) {
+      var unscaled = y[i];
+      labels[i] = scaleBetween(unscaled, -1, 1, minRange, maxRange);
+    }
+    
     console.log(labels);
+
+
+    // console.log(data);
+
+  //   var data = [[-0.4326  ,  1.1909 ],
+  //   [3.0, 4.0],
+  //   [0.1253 , -0.0376   ],
+  //   [0.2877 ,   0.3273  ],
+  //   [-1.1465 ,   0.1746 ],
+  //   [1.8133 ,   2.1139  ],
+  //   [2.7258 ,   3.0668  ],
+  //   [1.4117 ,   2.0593  ],
+  //   [4.1832 ,   1.9044  ],
+  //   [1.8636 ,   1.1677  ]
+  // ];
+
+  //   var labels = [1,1,1,1,1,-1,-1,-1,-1,-1];
+
     const svm = new svmjs.SVM();
     let wb = null
     let ss = 50.0
@@ -41,10 +92,10 @@ const Overview = () => {
     let WIDTH = ctx.canvas.width;
     let HEIGHT = ctx.canvas.height;
 
-    trainstats = svm.train(data, labels, { kernel: 'rbf', rbfsigma: rbfKernelSigma, C: svmC });
+    trainstats = svm.train(scaled, labels, { kernel: 'rbf', rbfsigma: rbfKernelSigma, C: svmC });
     dirty = true;
 
-    draw(ctx, WIDTH, HEIGHT, svm, data, labels, wb, ss, trainstats, dirty, kernelid, rbfKernelSigma, svmC);
+    draw(ctx, WIDTH, HEIGHT, svm, scaled, labels, wb, ss, trainstats, dirty, kernelid, rbfKernelSigma, svmC);
   }
 
   const draw = (ctx, WIDTH, HEIGHT, svm, data, labels, wb, ss, trainstats, dirty, kernelid, rbfKernelSigma, svmC) => {
@@ -53,7 +104,7 @@ const Overview = () => {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
     // draw decisions in the grid
-    let density = 4.0;
+    let density = 5.0;
     for (let x = 0.0; x <= WIDTH; x += density) {
       for (let y = 0.0; y <= HEIGHT; y += density) {
         let dec = svm.marginOne([(x - WIDTH / 2) / ss, (y - HEIGHT / 2) / ss]);
