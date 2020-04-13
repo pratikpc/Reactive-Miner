@@ -79,6 +79,9 @@ const SideDrawer = props => {
         <ListItem button onClick={() => { pushLink('/decision-tree') }}>
           <ListItemText primary="Decision Tree" />
         </ListItem>
+        <ListItem button onClick={() => { pushLink('/svm') }}>
+          <ListItemText primary="Support Vector Machine" />
+        </ListItem>
         <ListItem button onClick={() => { pushLink('/pca') }}>
           <ListItemText primary="PCA" />
         </ListItem>

@@ -13,12 +13,13 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345
+    maxWidth: 300
   },
   media: {
-    height: 140
+    height: 180
   }
 });
+
 
 const Dashboard = () => {
   // eslint-disable-next-line
@@ -34,7 +35,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="./tensorflow.png"
+                image={require("./images/tensorflow.png")}
                 title="Tensorflow JS"
               />
               <CardContent>
@@ -62,7 +63,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="./react.png"
+                image={require("./images/react.png")}
                 title="React JS"
               />
               <CardContent>
@@ -90,8 +91,8 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="./ml5.png"
-                title="Ml5.JS"
+                image={require("./images/d3.png")}
+                title="D3.JS"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -116,7 +117,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="./material.png"
+                image={require("./images/materialui.png")}
                 title="Material UI"
               />
               <CardContent>
@@ -136,32 +137,6 @@ const Dashboard = () => {
                 <a href="https://material-ui.com/">See More</a>
               </Button>
               {/* </Link>  */}
-            </CardActions>
-          </Card>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <br />
-          <Card className={classes.root}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="./vega.png"
-                title="Vega.JS"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  Vega
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  With Vega, you can describe the visual appearance and
-                  interactive behavior of a visualization in a JSON format
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Button size="small" color="primary">
-                <a href="https://vega.github.io/vega/">See More</a>
-              </Button>
             </CardActions>
           </Card>
         </Grid>
