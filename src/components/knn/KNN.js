@@ -124,7 +124,7 @@ const KNN = () => {
     };
 
     function valuetext(value) {
-        return `${value}°C`;
+        return `${value}`;
     }
 
     return (

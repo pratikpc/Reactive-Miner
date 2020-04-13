@@ -567,7 +567,7 @@ figue.Node.prototype.buildDendogram = function (sep, balanced,withLabel,withCent
 	return lines.join ("\n") ;	
 }
 
-
+// eslint-disable-next-line
 Array.prototype.compare = function(testArr) {
     if (this.length !==testArr.length) return false;
     for (let i = 0; i < testArr.length; i++) {

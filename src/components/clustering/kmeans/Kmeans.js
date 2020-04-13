@@ -10,6 +10,7 @@ import Plot from 'react-plotly.js';
 import {KMeans} from 'shaman';
 
 async function kmeansFunction(csv, selectedCols, plotData, setplotData, k = 3) {
+    // eslint-disable-next-line
     const [data, _] = await ConvertCSVToRawArrays(csv, [], selectedCols);
     console.log(selectedCols);
     console.log('Function called', data);

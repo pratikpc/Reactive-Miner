@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Formik } from 'formik';
 import { csvContext } from '../../context/csv-context';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,6 +20,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 import { fcmeans } from './figue.js';
+// eslint-disable-next-line
 import { ExtractSelectedLabelsFromCSV, FindArgMax, ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
 import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../ml/utils';
 import { Link } from '@material-ui/core';
