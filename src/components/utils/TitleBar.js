@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 const TitleBar = props => {
     return (
         <Paper style={{ background: '#000000', color: 'white', margin:' 10px', padding: '20px' }}>
-            <Typography style={{ marginBottom: '5px' }} variant="h5">
+            <Typography style={{ marginBottom: '10px' }} variant="h5">
                 {props.name}
             </Typography>
             {props.tags.map((tag, index) => 

@@ -19,7 +19,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-import { fcmeans } from './figue.js';
+import { fcmeans,kmeans } from './figue.js';
 import { ExtractSelectedLabelsFromCSV, FindArgMax, ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
 import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../ml/utils';
 import { Link } from '@material-ui/core';
@@ -50,9 +50,9 @@ const useStyles = makeStyles(theme => ({
 
 async function PerformFCMeans(csv, k, epsilon, fuzziness, labels, xIdx, yIdx) {
     const data = await ConvertCSVToSingleArray(csv, labels);
-    const res = fcmeans(k, data, epsilon, fuzziness)
-    const assignedClusters = await FindArgMax(res.membershipMatrix.mtx);
-    const clusters = ConvertClusterIconsToData(assignedClusters, k, data);
+    const res = kmeans(k, data/*, epsilon, fuzziness*/)
+    console.log(res);
+    const clusters = ConvertClusterIconsToData(res.assignments, k, data);
     VisorStop();
     const chart = GenerateChartForCluster(res.centroids,clusters, xIdx, yIdx);
     await DrawScatterPlot(chart);
