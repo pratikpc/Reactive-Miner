@@ -18,32 +18,10 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
-<<<<<<< Updated upstream
-async function kmeansFunction(csv, selectedCols, plotData, setplotData, k = 3) {
-    // eslint-disable-next-line
-    const [data, _] = await ConvertCSVToRawArrays(csv, [], selectedCols);
-    console.log(selectedCols);
-    console.log('Function called', data);
-
-    const kmeans = new KMeans(k);
-
-    // execute clustering using dataset
-    kmeans.cluster(data, function (err, clusters, centroids) {
-        // show any errors
-        console.log(err);
-
-        // dictionary for aux the indexes read
-        const indexes = {
-            X: 0,
-            Y: 1,
-        }
-=======
 import { fcmeans,kmeans } from '../fcmeans/figue';
 import { ExtractSelectedLabelsFromCSV, FindArgMax, ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
 import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../ml/utils';
 import { Link } from '@material-ui/core';
->>>>>>> Stashed changes
 
 const useStyles = makeStyles(theme => ({
     paper: {
