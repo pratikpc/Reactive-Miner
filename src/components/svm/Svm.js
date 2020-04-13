@@ -202,14 +202,13 @@ const Overview = () => {
                         )}
                         {csv ? (
                             <Grid container>
-                                <Grid item md={6} xs={12}>
-                                <Button variant="contained" color="primary" onClick={async () => await trainModel(csv, labelColumn, columnNames)}>Train</Button>
-                                <div>
+                              <Grid style={{ textAlign: 'center' }} item xs={12}>
+                                    <Button variant="contained" color="primary" style={{ width: '90%' }} onClick={async () => await trainModel(csv, labelColumn, columnNames)}>Train</Button>
+                              </Grid>
+                                <div style={{ paddingTop: '50px'}}>
                                   <canvas width="500" height="500" ref={NPGcanvas} />
                                 </div>
-                                
                               </Grid>
-                            </Grid>
                         ) : (
                                 <div style={{ paddingTop: '50px', textAlign: 'center' }}>
                                     Please select a dataset
