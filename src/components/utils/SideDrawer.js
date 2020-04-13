@@ -70,9 +70,6 @@ const SideDrawer = props => {
         <ListItem button onClick={() => { pushLink('/linreg') }}>
           <ListItemText primary="Linear Regression" />
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Logistic Regression" />
-        </ListItem>
       </List>
       <Divider />
       <List>
@@ -84,9 +81,6 @@ const SideDrawer = props => {
         </ListItem>
         <ListItem button onClick={() => { pushLink('/search') }}>
           <ListItemText primary="PCA" />
-        </ListItem>
-        <ListItem button onClick={() => { pushLink('/kmeans') }}>
-          <ListItemText primary="KMeans" />
         </ListItem>
         <ListItem button onClick={() => { pushLink('/svm') }}>
           <ListItemText primary="SVM" />
@@ -101,9 +95,7 @@ const SideDrawer = props => {
         <ListSubheader component="div">
           CLUSTERING
           </ListSubheader>
-        <ListItem button onClick={() => {
-          pushLink('/fcmeans')
-        }}>
+        <ListItem button onClick={() => { pushLink('/fcmeans') }}>
           < ListItemText primary="FC Means" />
         </ListItem>
         <ListItem button onClick={() => { pushLink('/kmeans') }}>
@@ -114,14 +106,6 @@ const SideDrawer = props => {
         </ListItem>
       </List>
       <Divider />
-      <List>
-        <ListSubheader component="div">
-          NEURAL NETWORKS
-          </ListSubheader>
-        <ListItem button onClick={() => { pushLink('/maps') }}>
-          <ListItemText primary="CNN" />
-        </ListItem>
-      </List>
     </div>
   );
 
