@@ -76,12 +76,12 @@ export function GenerateChartForCluster(centroids, clusters, xIdx, yIdx) {
     }
     return chart;
 }
-// export async function DrawBarChart(name, tab, values) {
-//     const data = values.map((value, index) => { index, value });
-//     // Render to visor
-//     const surface = { name: name, tab: tab };
-//     tfvis.render.barchart(surface, data);
-// }
+export async function DrawBarChart(name, tab, values) {
+    const data = values.map((value, index) => { return { index, value } });
+    // Render to visor
+    const surface = { name: name, tab: tab };
+    tfvis.render.barchart(surface, data);
+}
 export async function DrawScatterPlot(chart) {
     const series = chart.values.map(value => value.values);
     const series_names = chart.values.map(value => value.name);

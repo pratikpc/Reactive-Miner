@@ -12,13 +12,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { Button } from '@material-ui/core';
+import { VisorStop, DrawBarChart } from '../ml/utils';
+import { ConvertCSVToSingleArray } from '../../ML/utils';
 const { PCA } = require('ml-pca');
 
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
-          margin: theme.spacing(1),
-          width: '25ch',
+            margin: theme.spacing(1),
+            width: '25ch',
         },
     },
     button: {
@@ -27,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     },
     descDiv: {
         marginTop: '20px',
-        background: '#505050', 
-        width: '100%', 
+        background: '#505050',
+        width: '100%',
         padding: '15px',
         fontSize: '14px',
     },
@@ -42,7 +44,7 @@ const PCAnalysis = () => {
     const [pcaColumns, setPcaColumns] = useState([]);
     const [error, setError] = useState('');
 
-    useEffect( () => {
+    useEffect(() => {
         if (csv) {
             async function Fetch() {
                 let cols = await csv.columnNames()
@@ -50,7 +52,7 @@ const PCAnalysis = () => {
             }
             Fetch();
         }
-    }, [csv]) 
+    }, [csv])
 
     const toggleColumn = (event) => {
         if (event.target.checked) {
@@ -66,44 +68,29 @@ const PCAnalysis = () => {
         return `${value}`;
     }
 
-    const trainPca = () => {
+    const trainPca = async () => {
         if (pcaColumns && pcaColumns.length > 0) {
             try {
-                // pcaColumns are selected columns
-                //threshold is threshold
-                let data = [
-                    [ 5.7, 3.8, 1.7, 0.3,0], [0, 5.1, 3.8, 1.5, 0.3 ], [0, 5.4, 3.4, 1.7, 0.2 ],
-                    [ 5.1, 3.7, 1.5, 0.4,0 ], [ 0,4.6, 3.6, 1, 0.2 ],   [0, 5.1, 3.3, 1.7, 0.5 ],
-                    [ 4.8, 3.4, 1.9, 0.2 ,0], [ 0,5, 3, 1.6, 0.2 ],     [ 0,5, 3.4, 1.6, 0.4 ],
-                    [ 5.2, 3.5, 1.5, 0.2 ,0], [ 0,5.2, 3.4, 1.4, 0.2 ], [ 0,4.7, 3.2, 1.6, 0.2 ],
-                    [ 4.8, 3.1, 1.6, 0.2,0 ], [ 0,5.4, 3.4, 1.5, 0.4 ]
-                  ];
-                
-                  let thres = 0.8;
-                
-                  // accepts the dataset and threshold and the output is total letiance of all features in order = arr1[] "or" the outputs which are above the threshold given = arr2[]
-                
-                  function algo(dataset, threshold) {
-                
-                    let arr1 = [];
-                    let arr2 = [];
-                
+                let thres = 0.8;
+
+                // accepts the dataset and threshold and the output is total letiance of all features in order = arr1[] "or" the outputs which are above the threshold given = arr2[]
+
+                async function algo() {
+
+                    const data = await ConvertCSVToSingleArray(csv, []);
                     // dataset is a two-dimensional array where rows represent the samples and columns the features
-                    const pca = new PCA(dataset);
-                
-                    arr1 = pca.getExplainedVariance();
-                
-                    for (let i = 0; i < arr1.length; i++) {
-                      if (arr1[i] > threshold) {
-                        arr2.push(arr1[i]);
-                      }
-                     }
-                     console.log('The total variance is '+arr1,'\nThe total variance above threshold is '+arr2);
-                    }
-                
-                  //*********** so arr1 and arr2 should be displayed to user*************.
-                
-                  algo(data, thres)
+                    const pca = new PCA(data);
+                    const arr1 = pca.getExplainedVariance();
+
+                    VisorStop();
+                    console.log(arr1);
+                    await DrawBarChart("PCA", "PCA", arr1)
+                    console.log('The total variance is ' + arr1);
+                }
+
+                //*********** so arr1 and arr2 should be displayed to user*************.
+
+                await algo()
             } catch (err) {
                 console.log(err)
                 setError('Please select only numerical Attributes')
@@ -128,7 +115,7 @@ const PCAnalysis = () => {
                                 {error}
                             </Alert>
                         )}
-                        {csv ? (                        
+                        {csv ? (
                             <Grid container>
                                 <Grid item xs={12}>
                                     <Alert style={{ color: 'rgb(255, 213, 153)', background: 'rgb(25, 15, 0)' }} severity="warning">
@@ -139,16 +126,16 @@ const PCAnalysis = () => {
                                     </Paper>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    {columns.map((column, index) => 
+                                    {columns.map((column, index) =>
                                         <FormControlLabel
                                             key={index}
-                                            control={<Checkbox 
-                                                        checked={pcaColumns.includes(column)} 
-                                                        color="default" 
-                                                        name={column}
-                                                        onChange={toggleColumn} 
-                                                    />}
-                                            label={column}       
+                                            control={<Checkbox
+                                                checked={pcaColumns.includes(column)}
+                                                color="default"
+                                                name={column}
+                                                onChange={toggleColumn}
+                                            />}
+                                            label={column}
                                         />
                                     )}
                                 </Grid>
@@ -160,15 +147,15 @@ const PCAnalysis = () => {
                                         <span style={{ color: '#1692f7', fontWeight: '500', fontSize: '18px' }}>
                                             {threshold}
                                         </span>
-                                    </Typography>   
-                                    <Slider 
-                                        style={{ color: '#1692f7', width: '90%' }} 
+                                    </Typography>
+                                    <Slider
+                                        style={{ color: '#1692f7', width: '90%' }}
                                         value={threshold}
                                         aria-labelledby="range-slider"
                                         valueLabelDisplay="auto"
                                         marks
                                         min={0.1}
-                                        max={1.0} 
+                                        max={1.0}
                                         step={0.01}
                                         getAriaValueText={valuetext}
                                         onChange={(event, newValue) => {
@@ -181,10 +168,10 @@ const PCAnalysis = () => {
                                 </Grid>
                             </Grid>
                         ) : (
-                            <div style={{ paddingTop: '50px', textAlign: 'center' }}>
-                                Please select a dataset
-                            </div>
-                        )}
+                                <div style={{ paddingTop: '50px', textAlign: 'center' }}>
+                                    Please select a dataset
+                                </div>
+                            )}
                     </div>
                 </Grid>
             </Grid>
