@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import dt from './utils';
 import { csvContext } from '../context/csv-context';
-import './DecisionTree.css';
+import LoadDataset from '../utils/LoadDataset';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -20,6 +20,8 @@ import TextField from '@material-ui/core/TextField';
 import FunctionsIcon from '@material-ui/icons/Functions';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import TitleBar from '../utils/TitleBar';
+
+import './DecisionTree.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -205,6 +207,7 @@ const DecisionTree = () => {
                 <CsvTable />
             </Grid>
             <Grid item md={6} xs={12}>
+                <LoadDataset />
                 {csv ? (
                         <div style={{ padding: '10px' }}>
                             {error && (

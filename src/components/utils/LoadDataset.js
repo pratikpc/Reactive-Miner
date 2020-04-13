@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { csvContext } from '../context/csv-context';
+import { ReadCSV } from '../linreg/utils';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
@@ -12,16 +13,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import SaveIcon from '@material-ui/icons/Save';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
-import { blue } from '@material-ui/core/colors';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import Link from '@material-ui/core/Link';
 
+const FOLDER_URL = process.env.PUBLIC_URL
 const DATASETS_URL = process.env.PUBLIC_URL + '/datasets.json';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,8 +40,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoadDatasetDialog = props => {
+    const { fetchCsv } = useContext(csvContext);
     const classes = useStyles();
     const { onClose, open, datasets } = props;
+
+    const loadCSV = (url) => {
+        let datasetURL = FOLDER_URL + "/" + url
+        const data = ReadCSV(datasetURL, ',');
+        fetchCsv(data);
+        onClose();
+    }
 
     return (
         <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
@@ -60,23 +67,26 @@ const LoadDatasetDialog = props => {
                 {datasets.map((dataset, index) => (
                     <ListItem key={index}>
                         <ListItemAvatar>
-                        <Avatar>
-                            <FolderIcon />
-                        </Avatar>
+                            <Avatar>
+                                <IconButton 
+                                    onClick={() => loadCSV(dataset.url)} 
+                                    style={{ color: 'black', marginRight: '0px' }} 
+                                    edge="end" 
+                                    aria-label="load"
+                                >
+                                    <SaveIcon />
+                                </IconButton>
+                            </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             primary={dataset.name}
                         />
-                        <Avatar>
-                            <IconButton style={{ color: 'black', marginRight: '0px' }} edge="end" aria-label="load">
-                                <SaveIcon />
-                            </IconButton>
-                        </Avatar>
-
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="download">
-                                <SaveAltIcon />
-                            </IconButton>
+                                <IconButton edge="end" aria-label="download">
+                                    <Link href={`${FOLDER_URL}/${dataset.url}`}>
+                                        <CloudDownloadIcon style={{ color: '#FFF' }} />
+                                    </Link>
+                                </IconButton>
                         </ListItemSecondaryAction>
                     </ListItem>
                 ))}
@@ -112,11 +122,19 @@ const LoadDataset = () => {
     };
 
     return (
-        <div>
+        <div style={{ margin: '10px' }}>
             {datasetFiles && (
                 <div>
-                    <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                        Open simple dialog
+                    <Button 
+                    variant="contained" 
+                    style={{ 
+                        width: '100%',
+                        color: '#000000', 
+                        backgroundColor: '#90caf9' 
+                    }} 
+                    onClick={handleClickOpen}
+                    >
+                        LOAD DEMO DATASET
                     </Button>
                     <LoadDatasetDialog open={open} onClose={handleClose} datasets={datasetFiles} />
                 </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Formik } from 'formik';
 import { csvContext } from '../../context/csv-context';
+import LoadDataset from '../../utils/LoadDataset';
 import { makeStyles } from '@material-ui/core/styles';
 import TitleBar from '../../utils/TitleBar';
 import CsvReader from '../../utils/CsvReader';
@@ -86,6 +87,7 @@ export default function Kmeans() {
                     <CsvTable />
                 </Grid>
                 <Grid item md={6} xs={12}>
+                    <LoadDataset />
                     {csv && columnNames && label ? (
                         <div style={{ padding: '10px' }}>
                             {error && (
