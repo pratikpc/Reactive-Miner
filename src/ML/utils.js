@@ -49,7 +49,14 @@ export function RootMeanSquareError(yTrue, yPred) {
         return tf.sqrt(tf.metrics.meanSquaredError(yTrue, yPred));
     });
 }
-
+export async function FindArgMax(values, axis = 1) {
+    const valuesT = tf.tensor(values);
+    const argMaxT = valuesT.argMax(axis);
+    const argMax = await argMaxT.array();
+    valuesT.dispose();
+    argMaxT.dispose();
+    return argMax;
+}
 export function DisposeValue(val) {
     val.value.dispose();
     val.max.dispose();
@@ -58,6 +65,17 @@ export function DisposeValue(val) {
 export function DisposeValues(...vals) {
     for (const val of vals)
         DisposeValue(val);
+}
+export function ConvertClusterIconsToData(clusterIds, k, data) {
+    let clusters = [];
+    for (let i = 0; i < k; ++i)
+        clusters.push([]);
+    for (let i = 0; i < clusterIds.length; ++i) {
+        const cluster = clusterIds[i];
+        const value = data[i];
+        clusters[cluster].push(value);
+    }
+    return clusters;
 }
 export async function ExtractSelectedLabelsFromCSV(csv, selectedCols = []) {
     const data = await csv.toArray();
@@ -88,6 +106,18 @@ export async function ConvertCSVToRawArrays(csv, labelCol, allCols = [], normali
 
     DisposeValues(xT, yT);
     return [x, y];
+}
+export async function ConvertCSVToSingleArray(csv, selectedCols = [], normalize = false) {
+    const data = await csv.toArray();
+    const raw = await ExtractSelectedLabels(data, selectedCols);
+    const values = [];
+    for (const rawV of raw) {
+        const value = [];
+        for (const key in rawV)
+            value.push(rawV[key]);
+        values.push(value);
+    }
+    return values;
 }
 function ExtractInformation(raw, data, normalize = true) {
     return tf.tidy(() => {
