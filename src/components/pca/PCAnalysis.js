@@ -74,22 +74,15 @@ const PCAnalysis = () => {
             try {
                 // accepts the dataset and threshold and the output is total letiance of all features in order = arr1[] "or" the outputs which are above the threshold given = arr2[]
 
-                async function algo() {
+                const data = await ConvertCSVToSingleArray(csv, pcaColumns);
+                // dataset is a two-dimensional array where rows represent the samples and columns the features
+                const pca = new PCA(data);
+                const arr1 = pca.getExplainedVariance();
 
-                    const data = await ConvertCSVToSingleArray(csv, []);
-                    // dataset is a two-dimensional array where rows represent the samples and columns the features
-                    const pca = new PCA(data);
-                    const arr1 = pca.getExplainedVariance();
-
-                    VisorStop();
-                    console.log(arr1);
-                    await DrawBarChart("PCA", "PCA", arr1)
-                    console.log('The total variance is ' + arr1);
-                }
-
-                //*********** so arr1 and arr2 should be displayed to user*************.
-
-                await algo()
+                VisorStop();
+                console.log(arr1);
+                await DrawBarChart("PCA", "PCA", arr1)
+                console.log('The total variance is ' + arr1);
             } catch (err) {
                 console.log(err)
                 setError('Please select only numerical Attributes')

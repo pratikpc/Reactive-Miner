@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Formik } from 'formik';
 import { csvContext } from '../../context/csv-context';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,18 +10,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import { fcmeans,kmeans } from '../fcmeans/figue';
-import { ExtractSelectedLabelsFromCSV, FindArgMax, ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
-import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../ml/utils';
+import { kmeans } from '../fcmeans/figue';
+import { ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
+import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../linreg/utils';
 import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -48,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-async function PerformKMeans(csv, k, epsilon, fuzziness, labels, xIdx, yIdx) {
+async function PerformKMeans(csv, k, labels, xIdx, yIdx) {
     const data = await ConvertCSVToSingleArray(csv, labels);
     const res = kmeans(k, data/*, epsilon, fuzziness*/)
     console.log(res);
@@ -126,17 +119,15 @@ export default function Kmeans() {
 
                                     return errors;
                                 }}
-                                onSubmit={async (values, { setSubmitting }) => {
+                                onSubmit={async (values) => {
                                     setError("");
                                     try {
                                         // TODO: KMeans    
                                         const labels = [...(new Set([values.label, ...values.vectors]))];
                                         const k = values.k;
-                                        const epsilon = 0.6;
-                                        const fuzziness = 2;
                                         const xIdx = 0;
                                         const yIdx = 1;
-                                        await PerformKMeans(csv, k, epsilon, fuzziness, labels, xIdx, yIdx);
+                                        await PerformKMeans(csv, k, labels, xIdx, yIdx);
                                     } catch (err) {
                                         console.error(err);
                                         setError('Please Recheck your Provided Parameters');
@@ -147,10 +138,8 @@ export default function Kmeans() {
                                 errors,
                                 touched,
                                 handleChange,
-                                handleBlur,
                                 handleSubmit,
                                 isSubmitting,
-                                setFieldValue,
                             }) => (
                                     <form className={classes.form} onSubmit={handleSubmit}>
                                         <Grid container spacing={1}>
@@ -193,13 +182,6 @@ export default function Kmeans() {
                             </div>
                         )}
                 </Grid>
-                {csv && label && (
-                    <Paper style={{ width: '100%', margin: '20px', padding: '20px', textAlign: 'center', backgroundColor: '#000000' }}>
-                        <Typography variant="h4" gutterBottom>
-                            Dendogram
-                        </Typography>
-                    </Paper>
-                )}
             </Grid>
         </div >
     )

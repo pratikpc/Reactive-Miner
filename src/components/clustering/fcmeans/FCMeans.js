@@ -18,9 +18,8 @@ import Paper from '@material-ui/core/Paper';
 import Slider from '@material-ui/core/Slider';
 
 import { fcmeans } from './figue.js';
-// eslint-disable-next-line
-import { ExtractSelectedLabelsFromCSV, FindArgMax, ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
-import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../ml/utils';
+import { FindArgMax, ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils';
+import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../linreg/utils';
 import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles(theme => ({
@@ -53,7 +52,7 @@ async function PerformFCMeans(csv, k, epsilon, fuzziness, labels, xIdx, yIdx) {
     const assignedClusters = await FindArgMax(res.membershipMatrix.mtx);
     const clusters = ConvertClusterIconsToData(assignedClusters, k, data);
     VisorStop();
-    const chart = GenerateChartForCluster(res.centroids,clusters, xIdx, yIdx);
+    const chart = GenerateChartForCluster(res.centroids, clusters, xIdx, yIdx);
     await DrawScatterPlot(chart);
 }
 export default function FCMeans() {
@@ -83,9 +82,9 @@ export default function FCMeans() {
             <Grid container>
                 <Grid item md={6} xs={12}>
                     <TitleBar name="Fuzzy C-Means" tags={['Clustering', 'C-Means', 'Matrix']} />
-                <p>
-                    <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
-                </p>
+                    <p>
+                        <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
+                    </p>
                     <CsvReader />
                     <CsvTable />
                 </Grid>
@@ -122,10 +121,10 @@ export default function FCMeans() {
 
                                     return errors;
                                 }}
-                                onSubmit={async (values, { setSubmitting }) => {
+                                onSubmit={async (values) => {
+                                    console.log(values);
                                     setError("");
                                     try {
-                                        // TODO: FCMeans    
                                         const labels = [...(new Set([...values.vectors]))];
                                         const xIdx = 0;
                                         const yIdx = 1;
@@ -151,27 +150,27 @@ export default function FCMeans() {
                                                 <Paper style={{ backgroundColor: 'black', padding: '20px' }}>
                                                     Select the numerical attributes
                                                 </Paper>
-                                                    {columnNames.map((column, index) =>
-                                                        <FormControlLabel
-                                                            key={index}
-                                                            control={<Checkbox
-                                                                checked={values.vectors.includes(column)}
-                                                                color="default"
-                                                                name={column}
-                                                                onChange={(event) => {
-                                                                    let array = values.vectors;
-                                                                    if (array.includes(event.target.name)) {
-                                                                        const newArray = array.filter((col) => col !== event.target.name);
-                                                                        setFieldValue('vectors', newArray, false)
-                                                                    } else {
-                                                                        array.push(event.target.name)
-                                                                        setFieldValue('vectors', array, false)
-                                                                    }
-                                                                }}
-                                                            />}
-                                                            label={column}
-                                                        />
-                                                    )}
+                                                {columnNames.map((column, index) =>
+                                                    <FormControlLabel
+                                                        key={index}
+                                                        control={<Checkbox
+                                                            checked={values.vectors.includes(column)}
+                                                            color="default"
+                                                            name={column}
+                                                            onChange={(event) => {
+                                                                let array = values.vectors;
+                                                                if (array.includes(event.target.name)) {
+                                                                    const newArray = array.filter((col) => col !== event.target.name);
+                                                                    setFieldValue('vectors', newArray, false)
+                                                                } else {
+                                                                    array.push(event.target.name)
+                                                                    setFieldValue('vectors', array, false)
+                                                                }
+                                                            }}
+                                                        />}
+                                                        label={column}
+                                                    />
+                                                )}
                                             </Grid>
                                             <Grid style={{ marginTop: '10px' }} item xs={12}>
                                                 <TextField id="select"
@@ -258,9 +257,9 @@ export default function FCMeans() {
                                                 variant="contained"
                                                 color="primary"
                                                 className={classes.submit}
-                                                disabled={isSubmitting}
+                                            // disabled={isSubmitting}
                                             >
-                                                CLUSTER DATA AND DISPLAY DENDOGRAM
+                                                CLUSTER DATA
                                     </Button>
                                         </div>
                                     </form>
