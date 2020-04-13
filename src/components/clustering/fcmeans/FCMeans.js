@@ -14,10 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import Slider from '@material-ui/core/Slider';
 
 import { fcmeans } from './figue.js';
 // eslint-disable-next-line
@@ -76,6 +73,10 @@ export default function FCMeans() {
         LoadColumnNames();
     }, [csv, setColumnNames]);
 
+    function valuetext(value) {
+        return `${value}`;
+    }
+
     return (
         <div>
             <Grid container>
@@ -98,29 +99,23 @@ export default function FCMeans() {
                                 enableReinitialize
                                 initialValues={{
                                     vectors: columnNames,
-                                    label: label,
-                                    linkage: 0,
-                                    distance: 0,
-                                    withLabel: true,
-                                    withCentroid: false,
-                                    withDistance: false,
-                                    balanced: true,
-                                    space: 5
+                                    k: 4,
+                                    epsilon: 0.3,
+                                    fuzziness: 2
                                 }}
                                 validate={values => {
                                     const errors = {};
                                     if (!values.label) {
                                         errors.label = 'Required';
                                     }
-                                    if (values.linkage < 0 || values.linkage > 2) {
-                                        console.log("haha")
-                                        errors.linkage = 'Required';
+                                    if (!values.epsilon) {
+                                        errors.epsilon = 'Required';
                                     }
-                                    if (values.distance < 0 || values.distance > 2) {
-                                        errors.distance = 'Required';
+                                    if (!values.fuzziness) {
+                                        errors.fuzziness = 'Required';
                                     }
-                                    if (values.space !== 3 && values.space !== 5 && values.space !== 7 && values.space !== 9) {
-                                        errors.space = 'Invalid value'
+                                    if (values.k < 2 && values.k > 9) {
+                                        errors.k = 'Invalid number of clusters'
                                     }
 
                                     return errors;
@@ -129,13 +124,10 @@ export default function FCMeans() {
                                     setError("");
                                     try {
                                         // TODO: FCMeans    
-                                        const labels = [...(new Set([values.label, ...values.vectors]))];
-                                        const k = 3;
-                                        const epsilon = 0.6;
-                                        const fuzziness = 2;
+                                        const labels = [...(new Set([...values.vectors]))];
                                         const xIdx = 0;
                                         const yIdx = 1;
-                                        await PerformFCMeans(csv, k, epsilon, fuzziness, labels, xIdx, yIdx);
+                                        await PerformFCMeans(csv, values.k, values.epsilon, values.fuzziness, labels, xIdx, yIdx);
                                     } catch (err) {
                                         console.error(err);
                                         setError('Please Recheck your Provided Parameters');
@@ -156,135 +148,105 @@ export default function FCMeans() {
                                             <Grid item xs={12}>
                                                 <Paper style={{ backgroundColor: 'black', padding: '20px' }}>
                                                     Select the numerical attributes
-                                            </Paper>
-                                                <Grid container spacing={1}>
+                                                </Paper>
                                                     {columnNames.map((column, index) =>
-                                                        <Grid item xs={12} key={index}>
-                                                            {column !== values.label && (
-                                                                <FormControlLabel
-                                                                    control={<Checkbox
-                                                                        checked={values.vectors.includes(column)}
-                                                                        color="default"
-                                                                        name={column}
-                                                                        onChange={(event) => {
-                                                                            let array = values.vectors;
-                                                                            if (array.includes(event.target.name)) {
-                                                                                const newArray = array.filter((col) => col !== event.target.name);
-                                                                                setFieldValue('vectors', newArray, false)
-                                                                            } else {
-                                                                                array.push(event.target.name)
-                                                                                setFieldValue('vectors', array, false)
-                                                                            }
-                                                                        }}
-                                                                    />}
-                                                                    label={column}
-                                                                />
-                                                            )}
-                                                        </Grid>
+                                                        <FormControlLabel
+                                                            key={index}
+                                                            control={<Checkbox
+                                                                checked={values.vectors.includes(column)}
+                                                                color="default"
+                                                                name={column}
+                                                                onChange={(event) => {
+                                                                    let array = values.vectors;
+                                                                    if (array.includes(event.target.name)) {
+                                                                        const newArray = array.filter((col) => col !== event.target.name);
+                                                                        setFieldValue('vectors', newArray, false)
+                                                                    } else {
+                                                                        array.push(event.target.name)
+                                                                        setFieldValue('vectors', array, false)
+                                                                    }
+                                                                }}
+                                                            />}
+                                                            label={column}
+                                                        />
                                                     )}
-                                                </Grid>
                                             </Grid>
-                                            <Grid style={{ padding: '10px' }} item xs={12}>
-                                                <hr />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextField id="select"
-                                                    label="Label" select
-                                                    fullWidth
-                                                    value={values.label}
-                                                    name="label"
-                                                    onChange={handleChange}
-                                                    variant="filled"
-                                                >
-                                                    {columnNames.map((column, index) =>
-                                                        <MenuItem key={index} value={column}>{column}</MenuItem>
-                                                    )}
-                                                </TextField>
-                                                <FormHelperText>Select a Label</FormHelperText>
-                                            </Grid>
-                                            <Grid style={{ padding: '10px' }} item xs={12}>
-                                                <hr />
-                                            </Grid>
-                                            <Grid style={{ marginTop: '10px' }} item xs={6}>
-                                                <FormControl component="fieldset">
-                                                    <FormLabel component="legend">Linkage</FormLabel>
-                                                    <RadioGroup aria-label="linkage" name="linkage" value={values.linkage} onChange={(event) => {
-                                                        setFieldValue('linkage', parseInt(event.target.value), false)
-                                                    }}>
-                                                        <FormControlLabel value={0} control={<Radio />} label="Single-Linkage" />
-                                                        <FormControlLabel value={1} control={<Radio />} label="Complete-Linkage" />
-                                                        <FormControlLabel value={2} control={<Radio />} label="Average-Linkage" />
-                                                    </RadioGroup>
-                                                </FormControl>
-                                                <div style={{ margin: "10px", color: "red" }}>
-                                                    {errors.linkage && touched.linkage && errors.linkage}
-                                                </div>
-                                            </Grid>
-                                            <Grid style={{ marginTop: '10px' }} item xs={6}>
-                                                <FormControl component="fieldset">
-                                                    <FormLabel component="legend">Distance</FormLabel>
-                                                    <RadioGroup aria-label="distance" name="distance" value={values.distance} onChange={(event) => {
-                                                        setFieldValue('distance', parseInt(event.target.value), false)
-                                                    }}>
-                                                        <FormControlLabel value={0} control={<Radio />} label="Euclidian" />
-                                                        <FormControlLabel value={1} control={<Radio />} label="Manhattan" />
-                                                        <FormControlLabel value={2} control={<Radio />} label="Maximum" />
-                                                    </RadioGroup>
-                                                </FormControl>
-                                                <div style={{ margin: "10px", color: "red" }}>
-                                                    {errors.distance && touched.distance && errors.distance}
-                                                </div>
-                                            </Grid>
-                                            <Grid style={{ padding: '10px' }} item xs={12}>
-                                                <hr />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <FormControlLabel
-                                                    control={<Checkbox checked={values.withLabel} onChange={handleChange} name="withLabel" />}
-                                                    label="Show Labels"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <FormControlLabel
-                                                    control={<Checkbox checked={values.withDistance} onChange={handleChange} name="withDistance" />}
-                                                    label="Show Distance"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <FormControlLabel
-                                                    control={<Checkbox checked={values.withCentroid} onChange={handleChange} name="withCentroid" />}
-                                                    label="Show Centroid"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <FormControlLabel
-                                                    control={<Checkbox checked={values.balanced} onChange={handleChange} name="balanced" />}
-                                                    label="Balance Dendogram"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid style={{ marginTop: '10px' }} item xs={12}>
                                                 <TextField id="select"
                                                     style={{ width: '90%' }}
-                                                    label="Space" select
+                                                    label="Number of clusters" select
                                                     fullWidth
-                                                    value={values.space}
-                                                    name="space"
+                                                    value={values.k}
+                                                    name="k"
                                                     onChange={(event) => {
-                                                        setFieldValue('space', parseInt(event.target.value), true)
+                                                        setFieldValue('k', parseInt(event.target.value), true)
                                                     }}
                                                     variant="filled"
                                                 >
+                                                    <MenuItem value={2}>2</MenuItem>
                                                     <MenuItem value={3}>3</MenuItem>
+                                                    <MenuItem value={4}>4</MenuItem>
                                                     <MenuItem value={5}>5</MenuItem>
+                                                    <MenuItem value={6}>6</MenuItem>
                                                     <MenuItem value={7}>7</MenuItem>
+                                                    <MenuItem value={8}>8</MenuItem>
                                                     <MenuItem value={9}>9</MenuItem>
                                                 </TextField>
-                                                <FormHelperText>Minimum spacing between nodes</FormHelperText>
+                                                <FormHelperText>Total number of clusters for FCMeans</FormHelperText>
                                                 <div style={{ margin: "10px", color: "red" }}>
-                                                    {errors.space && touched.space && errors.space}
+                                                    {errors.k && touched.k && errors.k}
                                                 </div>
                                             </Grid>
-
+                                            <Grid item xs={12}>
+                                                <Typography style={{ marginTop: '5px' }} id="epsilon-slider" gutterBottom>
+                                                    Epsilon
+                                                    <span style={{ color: '#1692f7', marginLeft: '10px', fontWeight: '500', fontSize: '18px' }}>
+                                                        {values.epsilon}
+                                                    </span>
+                                                </Typography>
+                                                <Slider
+                                                    style={{ color: '#1692f7', width: '90%' }}
+                                                    value={values.epsilon}
+                                                    aria-labelledby="epsilon-slider"
+                                                    valueLabelDisplay="auto"
+                                                    marks
+                                                    min={0.1}
+                                                    max={0.9}
+                                                    step={0.1}
+                                                    getAriaValueText={valuetext}
+                                                    onChange={(event, newValue) => {
+                                                        setFieldValue('epsilon', parseFloat(newValue), false)
+                                                    }}
+                                                />
+                                                <div style={{ margin: "10px", color: "red" }}>
+                                                    {errors.epsilon && touched.epsilon && errors.epsilon}
+                                                </div>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Typography style={{ marginTop: '5px' }} id="fuzziness-slider" gutterBottom>
+                                                    Fuzziness
+                                                    <span style={{ color: 'red', marginLeft: '10px', fontWeight: '500', fontSize: '18px' }}>
+                                                        {values.fuzziness}
+                                                    </span>
+                                                </Typography>
+                                                <Slider
+                                                    style={{ color: 'red', width: '90%' }}
+                                                    value={values.fuzziness}
+                                                    aria-labelledby="fuzziness-slider"
+                                                    valueLabelDisplay="auto"
+                                                    marks
+                                                    min={2}
+                                                    max={100}
+                                                    step={1}
+                                                    getAriaValueText={valuetext}
+                                                    onChange={(event, newValue) => {
+                                                        setFieldValue('fuzziness', parseInt(newValue), false)
+                                                    }}
+                                                />
+                                                <div style={{ margin: "10px", color: "red" }}>
+                                                    {errors.fuzziness && touched.fuzziness && errors.fuzziness}
+                                                </div>
+                                            </Grid>
                                         </Grid>
                                         <div style={{ margin: '10px', textAlign: 'center' }}>
                                             <Button
