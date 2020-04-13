@@ -49,6 +49,7 @@ const PCAnalysis = () => {
             async function Fetch() {
                 let cols = await csv.columnNames()
                 setColumns(cols);
+                setPcaColumns([]);
             }
             Fetch();
         }
