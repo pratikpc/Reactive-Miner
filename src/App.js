@@ -18,6 +18,7 @@ import HierarchicalClustering from './components/clustering/HC/HierarchicalClust
 import Kmeans from './components/clustering/kmeans/Kmeans';
 import Svm from './components/svm/Svm';
 import KNN from './components/knn/KNN';
+import PCAnalysis from './components/pca/PCA';
 
 
 const theme = createMuiTheme(customTheme);
@@ -54,6 +55,9 @@ const App = () => {
         </Route>
         <Route path="/knn" exact>
           <KNN />
+        </Route>
+        <Route path="/pca" exact>
+          <PCAnalysis />
         </Route>
         <Redirect to="/" />
       </Switch>

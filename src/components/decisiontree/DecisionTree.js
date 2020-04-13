@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const DecisionTree = () => {
     const classes = useStyles();
     const { csv } = useContext(csvContext);
-    const [columns, setColumns] = useState([])
+    const [columns, setColumns] = useState([]);
     const [dTree, setDTree] = useState();
     const [config, setConfig] = useState({
         trainingSet: null, 
