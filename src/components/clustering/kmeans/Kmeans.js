@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { csvContext } from '../../context/csv-context';
 import { ConvertCSVToRawArrays } from '../../../ML/utils';
-import Plot from 'react-plotly.js';
+// import Plot from 'react-plotly.js';
 import {KMeans} from 'shaman';
 
 async function kmeansFunction(csv, selectedCols, plotData, setplotData, k = 3) {
@@ -91,7 +91,7 @@ const Kmeans = () => {
             </Grid>
             <Grid item md={6} xs={12}>
                 <Button onClick={async () => await kmeansFunction(csv, columnNames, plotData, setplotData)}>Click</Button>
-                <Plot {...console.log(plotData)} data={plotData}/>
+                {/* <Plot {...console.log(plotData)} data={plotData}/> */}
             </Grid>
         </Grid>
     );
