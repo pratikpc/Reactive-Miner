@@ -36,15 +36,55 @@ export function Zip(a, b) {
     });
     return c;
 }
-export async function DrawChart(surface, x, y, preds) {
-    const series_names = [];
-    const series = [];
+export function VisorStop() {
+    return RemoveNode("tfjs-visor-container");
+}
+export function GemerateChartForLinearRegression(name, tab, x, y, preds) {
+    const chart = {
+        name: name,
+        tab: tab,
+        values: []
+    };
     for (let i = 0; i < x[0].length; ++i) {
-        series_names.push("X " + i + " Y");
-        series.push(Zip(x, y).map(([x, y]) => { return { x: x[i], y }; }));
-        series_names.push("X " + i + " PRED");
-        series.push(Zip(x, preds).map(([x, y]) => { return { x: x[i], y }; }));
+        // Chart the Inputs with Label
+        chart.values.push({
+            name: "X " + (i + 1) + " Y",
+            // Values to Chart
+            values: Zip(x, y).map(([x, y]) => { return { x: x[i], y }; })
+        });
+        // Chart the Inputs with Predictions
+        chart.values.push({
+            name: "X " + i + " PREDs",
+            // Values to Chart
+            values: Zip(x, preds).map(([x, y]) => { return { x: x[i], y }; })
+        });
     }
+    return chart;
+}
+export function GenerateChartForCluster(centroids, clusters, xIdx, yIdx) {
+    const chart = { name: "Cluster", tab: "Cluster Vis", values: [] };
+    for (let i = 0; i < clusters.length; ++i)
+        chart.values.push({
+            name: 'Cluster ' + i,
+            values: clusters[i].map(cluster => { return { x: cluster[xIdx], y: cluster[yIdx] } })
+        });
+    for (let i = 0; i < centroids.length; ++i) {
+        chart.values.push({
+            name: 'Centroid ' + i,
+            values: [{ x: centroids[i][xIdx], y: centroids[i][yIdx] }]
+        });
+    }
+    return chart;
+}
+// export async function DrawBarChart(name, tab, values) {
+//     const data = values.map((value, index) => { index, value });
+//     // Render to visor
+//     const surface = { name: name, tab: tab };
+//     tfvis.render.barchart(surface, data);
+// }
+export async function DrawScatterPlot(chart) {
+    const series = chart.values.map(value => value.values);
+    const series_names = chart.values.map(value => value.name);
     const data = { values: series, series: series_names }
-    await tfvis.render.scatterplot(surface, data);
+    await tfvis.render.scatterplot({ name: chart.name, tab: chart.tab }, data);
 }

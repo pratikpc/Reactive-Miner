@@ -19,6 +19,7 @@ import Kmeans from './components/clustering/kmeans/Kmeans';
 import Svm from './components/svm/Svm';
 import KNN from './components/knn/KNN';
 import PCAnalysis from './components/pca/PCA';
+import FCMeans from './components/clustering/fcmeans/FCMeans';
 
 
 const theme = createMuiTheme(customTheme);
@@ -49,6 +50,9 @@ const App = () => {
         </Route>
         <Route path="/kmeans" exact>
           <Kmeans />
+        </Route>
+        <Route path="/fcmeans" exact>
+          <FCMeans />
         </Route>
         <Route path="/svm" exact>
           <Svm />

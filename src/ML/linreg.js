@@ -66,7 +66,6 @@ export function Evaluate(model, x, y, args = () => { }) {
 export async function PredictWithScaling(model, x, y) {
     const predT = Predict(model, x);
     const scaledT = ScaleBackVal(y, predT);
-    console.log(await predT.array(), await scaledT.array());
     predT.dispose();
     const prediction = (await scaledT.array())[0];
     scaledT.dispose();
