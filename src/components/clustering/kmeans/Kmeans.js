@@ -98,7 +98,7 @@ export default function Kmeans() {
                                     vectors: columnNames,
                                     label: label,
                                     linkage: 0,
-                                    k: 0,
+                                    k: 3,
                                     distance: 0,
                                     withLabel: true,
                                     withCentroid: false,
@@ -153,144 +153,11 @@ export default function Kmeans() {
                                     <form className={classes.form} onSubmit={handleSubmit}>
                                         <Grid container spacing={1}>
                                             <Grid item xs={12}>
-                                                <Paper style={{ backgroundColor: 'black', padding: '20px' }}>
-                                                    Select the numerical attributes
-                                            </Paper>
-                                                <Grid container spacing={1}>
-                                                    {columnNames.map((column, index) =>
-                                                        <Grid item xs={12} key={index}>
-                                                            {column !== values.label && (
-                                                                <FormControlLabel
-                                                                    control={<Checkbox
-                                                                        checked={values.vectors.includes(column)}
-                                                                        color="default"
-                                                                        name={column}
-                                                                        onChange={(event) => {
-                                                                            let array = values.vectors;
-                                                                            if (array.includes(event.target.name)) {
-                                                                                const newArray = array.filter((col) => col !== event.target.name);
-                                                                                setFieldValue('vectors', newArray, false)
-                                                                            } else {
-                                                                                array.push(event.target.name)
-                                                                                setFieldValue('vectors', array, false)
-                                                                            }
-                                                                        }}
-                                                                    />}
-                                                                    label={column}
-                                                                />
-                                                            )}
-                                                        </Grid>
-                                                    )}
-                                                </Grid>
-                                            </Grid>
-                                            <Grid style={{ padding: '10px' }} item xs={12}>
-                                                <hr />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextField id="select"
-                                                    label="Label" select
-                                                    fullWidth
-                                                    value={values.label}
-                                                    name="label"
-                                                    onChange={handleChange}
-                                                    variant="filled"
-                                                >
-                                                    {columnNames.map((column, index) =>
-                                                        <MenuItem key={index} value={column}>{column}</MenuItem>
-                                                    )}
-                                                </TextField>
-                                                <FormHelperText>Select a Label</FormHelperText>
-                                            </Grid>
-                                            <Grid style={{ padding: '10px' }} item xs={12}>
-                                                <hr />
-                                            </Grid>
-                                            <Grid style={{ marginTop: '10px' }} item xs={6}>
-                                                <FormControl component="fieldset">
-                                                    <FormLabel component="legend">Linkage</FormLabel>
-                                                    <RadioGroup aria-label="linkage" name="linkage" value={values.linkage} onChange={(event) => {
-                                                        setFieldValue('linkage', parseInt(event.target.value), false)
-                                                    }}>
-                                                        <FormControlLabel value={0} control={<Radio />} label="Single-Linkage" />
-                                                        <FormControlLabel value={1} control={<Radio />} label="Complete-Linkage" />
-                                                        <FormControlLabel value={2} control={<Radio />} label="Average-Linkage" />
-                                                    </RadioGroup>
-                                                </FormControl>
-                                                <div style={{ margin: "10px", color: "red" }}>
-                                                    {errors.linkage && touched.linkage && errors.linkage}
-                                                </div>
-                                            </Grid>
-                                            <Grid style={{ marginTop: '10px' }} item xs={6}>
-                                                <FormControl component="fieldset">
-                                                    <FormLabel component="legend">Distance</FormLabel>
-                                                    <RadioGroup aria-label="distance" name="distance" value={values.distance} onChange={(event) => {
-                                                        setFieldValue('distance', parseInt(event.target.value), false)
-                                                    }}>
-                                                        <FormControlLabel value={0} control={<Radio />} label="Euclidian" />
-                                                        <FormControlLabel value={1} control={<Radio />} label="Manhattan" />
-                                                        <FormControlLabel value={2} control={<Radio />} label="Maximum" />
-                                                    </RadioGroup>
-                                                </FormControl>
-                                                <div style={{ margin: "10px", color: "red" }}>
-                                                    {errors.distance && touched.distance && errors.distance}
-                                                </div>
-                                            </Grid>
-                                            <Grid style={{ padding: '10px' }} item xs={12}>
-                                                <hr />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <FormControlLabel
-                                                    control={<Checkbox checked={values.withLabel} onChange={handleChange} name="withLabel" />}
-                                                    label="Show Labels"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <FormControlLabel
-                                                    control={<Checkbox checked={values.withDistance} onChange={handleChange} name="withDistance" />}
-                                                    label="Show Distance"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <FormControlLabel
-                                                    control={<Checkbox checked={values.withCentroid} onChange={handleChange} name="withCentroid" />}
-                                                    label="Show Centroid"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <FormControlLabel
-                                                    control={<Checkbox checked={values.balanced} onChange={handleChange} name="balanced" />}
-                                                    label="Balance Dendogram"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextField id="select"
-                                                    style={{ width: '90%' }}
-                                                    label="Space" select
-                                                    fullWidth
-                                                    value={values.space}
-                                                    name="space"
-                                                    onChange={(event) => {
-                                                        setFieldValue('space', parseInt(event.target.value), true)
-                                                    }}
-                                                    variant="filled"
-                                                >
-                                                    <MenuItem value={3}>3</MenuItem>
-                                                    <MenuItem value={5}>5</MenuItem>
-                                                    <MenuItem value={7}>7</MenuItem>
-                                                    <MenuItem value={9}>9</MenuItem>
-                                                </TextField>
-                                                <FormHelperText>Minimum spacing between nodes</FormHelperText>
-                                                <div style={{ margin: "10px", color: "red" }}>
-                                                    {errors.space && touched.space && errors.space}
-                                                </div>
-                                            </Grid>
-                                            <Grid item xs={12}>
                                                 <TextField id="standard-basic"
                                                     style={{ width: '90%' }}
                                                     label="k" 
                                                     fullWidth
-                                                    onChange={(event) => {
-                                                        setFieldValue('k', parseInt(event.target.value), true)
-                                                    }}
+                                                    onChange={handleChange}
                                                     value={values.k}
                                                     name="k"
                                                 >
@@ -300,7 +167,6 @@ export default function Kmeans() {
                                                     {errors.space && touched.space && errors.space}
                                                 </div>
                                             </Grid>
-
                                         </Grid>
                                         <div style={{ margin: '10px', textAlign: 'center' }}>
                                             <Button
