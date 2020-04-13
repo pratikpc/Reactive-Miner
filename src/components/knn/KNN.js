@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MUIDataTable from "mui-datatables";
 import {KNNVisualization} from './d3knn';
+import TitleBar from '../utils/TitleBar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
@@ -131,6 +132,7 @@ const KNN = () => {
         <div style={{ paddingBottom: '30px' }}>
             <Grid container>
                 <Grid item md={6} xs={12}>
+                    <TitleBar name="K Nearest Neighbours" tags={['Nearest Neighbours', 'ScatterPlot']} />
                     <div className="csv-table">
                     {data ? (
                         <MUIDataTable

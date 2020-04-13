@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import MagicDropzone from 'react-magic-dropzone';
 import { csvContext } from '../context/csv-context';
 import Paper from '@material-ui/core/Paper';
-import { ReadCSV } from '../ml/utils';
+import { ReadCSV } from '../linreg/utils';
 
 const CsvReader = () => {
     const { fetchCsv } = useContext(csvContext);

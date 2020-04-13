@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Formik } from 'formik';
 import { csvContext } from '../../context/csv-context';
 import { makeStyles } from '@material-ui/core/styles';
+import TitleBar from '../../utils/TitleBar';
 import figue from './hc-hook';
 import Grid from '@material-ui/core/Grid';
 import CsvReader from '../../utils/CsvReader';
@@ -70,6 +71,7 @@ const HierarchicalClustering = () => {
         <div>
             <Grid container>
                 <Grid item md={6} xs={12}>
+                    <TitleBar name="Hieararchical Clustering" tags={['Clustering', 'Dendogram']} />
                     <CsvReader />
                     <CsvTable />
                 </Grid>

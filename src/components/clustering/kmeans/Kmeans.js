@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Formik } from 'formik';
 import { csvContext } from '../../context/csv-context';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import TitleBar from '../../utils/TitleBar';
 import CsvReader from '../../utils/CsvReader';
 import CsvTable from '../../utils/CsvTable';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
@@ -78,6 +79,7 @@ export default function Kmeans() {
         <div>
             <Grid container>
                 <Grid item md={6} xs={12}>
+                    <TitleBar name="K Means Clustering" tags={['Clustering', 'K-Means', 'ScatterPlot']} />
                 <p>
                     <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
                 </p>

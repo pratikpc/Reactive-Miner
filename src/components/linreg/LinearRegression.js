@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Formik } from 'formik';
+import TitleBar from '../utils/TitleBar';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import { csvContext } from '../context/csv-context';
@@ -131,6 +132,7 @@ export default function LinearRegression() {
     return (
         <Grid container>
             <Grid item md={6} xs={12}>
+                <TitleBar name="Linear Regression" tags={['Classification', 'Regression']} />
                 <p>
                     <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
                 </p>

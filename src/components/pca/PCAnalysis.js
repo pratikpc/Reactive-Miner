@@ -12,7 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { Button } from '@material-ui/core';
-import { VisorStop, DrawBarChart } from '../ml/utils';
+import { VisorStop, DrawBarChart } from '../linreg/utils';
 import { ConvertCSVToSingleArray } from '../../ML/utils';
 const { PCA } = require('ml-pca');
 
@@ -72,8 +72,6 @@ const PCAnalysis = () => {
     const trainPca = async () => {
         if (pcaColumns && pcaColumns.length > 0) {
             try {
-                let thres = 0.8;
-
                 // accepts the dataset and threshold and the output is total letiance of all features in order = arr1[] "or" the outputs which are above the threshold given = arr2[]
 
                 async function algo() {

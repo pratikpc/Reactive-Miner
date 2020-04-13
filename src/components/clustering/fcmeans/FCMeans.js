@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Formik } from 'formik';
 import { csvContext } from '../../context/csv-context';
 import { makeStyles } from '@material-ui/core/styles';
+import TitleBar from '../../utils/TitleBar';
 import Grid from '@material-ui/core/Grid';
 import CsvReader from '../../utils/CsvReader';
 import CsvTable from '../../utils/CsvTable';
@@ -20,7 +21,7 @@ import { fcmeans } from './figue.js';
 // eslint-disable-next-line
 import { ExtractSelectedLabelsFromCSV, FindArgMax, ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
 import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../ml/utils';
-import { Link } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -81,6 +82,7 @@ export default function FCMeans() {
         <div>
             <Grid container>
                 <Grid item md={6} xs={12}>
+                    <TitleBar name="Fuzzy C-Means" tags={['Clustering', 'C-Means', 'Matrix']} />
                 <p>
                     <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
                 </p>
