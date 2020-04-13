@@ -61,13 +61,19 @@ export function GemerateChartForLinearRegression(name, tab, x, y, preds) {
     }
     return chart;
 }
-export function GenerateChartForCluster(clusters, xIdx, yIdx) {
+export function GenerateChartForCluster(centroids, clusters, xIdx, yIdx) {
     const chart = { name: "Cluster", tab: "Cluster Vis", values: [] };
     for (let i = 0; i < clusters.length; ++i)
         chart.values.push({
             name: 'Cluster ' + i,
             values: clusters[i].map(cluster => { return { x: cluster[xIdx], y: cluster[yIdx] } })
         });
+    for (let i = 0; i < centroids.length; ++i) {
+        chart.values.push({
+            name: 'Centroid ' + i,
+            values: [{ x: centroids[i][xIdx], y: centroids[i][yIdx] }]
+        });
+    }
     return chart;
 }
 // export async function DrawBarChart(name, tab, values) {

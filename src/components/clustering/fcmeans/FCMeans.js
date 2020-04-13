@@ -51,13 +51,10 @@ const useStyles = makeStyles(theme => ({
 async function PerformFCMeans(csv, k, epsilon, fuzziness, labels, xIdx, yIdx) {
     const data = await ConvertCSVToSingleArray(csv, labels);
     const res = fcmeans(k, data, epsilon, fuzziness)
-    console.log("Centroids", res.centroids)
-    console.log("Membership matrix", res.membershipMatrix.mtx)
     const assignedClusters = await FindArgMax(res.membershipMatrix.mtx);
     const clusters = ConvertClusterIconsToData(assignedClusters, k, data);
-    console.log("Clusters", clusters);
     VisorStop();
-    const chart = GenerateChartForCluster(clusters, xIdx, yIdx);
+    const chart = GenerateChartForCluster(res.centroids,clusters, xIdx, yIdx);
     await DrawScatterPlot(chart);
 }
 export default function FCMeans() {
