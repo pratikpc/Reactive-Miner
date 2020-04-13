@@ -1,6 +1,9 @@
-// var data = [[0,1],[1,3],[2,6]];
-// var thres = 0.8;
+//User entered parameters a data array and a thres value see the function call at the bottom.
+//this stuff user has to enter a 2-D Array "not a csv file directly".
+var data = [[0,1,3,3,4,5,6],[1,34,5,6,7,1,2],[1,7,8,0,3,2,6],[2,4,4,5,6,7,7],[3,4,5,6,7,8,9]];
+var thres = 0.8;
 
+// accepts the dataset and threshold and the output is total variance of all rows = arr1[] "or" the outputs which are above the threshold given = arr2[]
 
 function algo(dataset, threshold) {
 
@@ -13,10 +16,6 @@ function algo(dataset, threshold) {
 
   arr1 = pca.getExplainedVariance();
 
-// If new points needs to be added in the dataset then we need this
-  // const newPoints = [[2,1],[5,3],[6,6]];
-  // console.log(pca.predict(newPoints));
-
   for (index = 0; index < arr1.length; index++) {
     if (arr1[index] > threshold) {
       arr2.push(arr1[index]);
@@ -25,4 +24,6 @@ function algo(dataset, threshold) {
    console.log('The total variance is '+arr1,'\nThe total variance above threshold is '+arr2);
   }
 
-// algo(data, thres)
+//*********** so arr1 and arr2 should be displayed to user*************.
+
+algo(data, thres)
