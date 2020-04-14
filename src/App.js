@@ -11,7 +11,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { csvContext } from './components/context/csv-context';
 import Header from './components/utils/Header';
 import Dashboard from './components/utils/Dashboard';
-import Overview from './components/utils/Overview';
 import LinearRegression from './components/linreg/LinearRegression';
 import DecisionTree from './components/decisiontree/DecisionTree';
 import HierarchicalClustering from './components/clustering/HC/HierarchicalClustering';
@@ -34,17 +33,12 @@ const App = () => {
 
   let routes = (
       <Switch>
-          <Route path="/landing" exact>
+          <Route path="/" exact>
             <Landing />
           </Route>
-          <Route path="/" exact>
+          <Route path="/dashboard" exact>
             <Header>              
               <Dashboard />
-            </Header>
-          </Route>
-          <Route path="/overview" exact>
-            <Header>
-              <Overview />
             </Header>
           </Route>
           <Route path="/linreg" exact>

@@ -51,22 +51,22 @@ const Overview = () => {
               unscaledNums.push(data[j][i]);
             }
             
-            var maxRange = Math.max.apply(Math, unscaledNums);
-            var minRange = Math.min.apply(Math, unscaledNums);
+            let maxRange = Math.max.apply(Math, unscaledNums);
+            let minRange = Math.min.apply(Math, unscaledNums);
 
-            for (var l = 0; l < unscaledNums.length; l++) {
-              var unscaled = unscaledNums[l];
+            for (let l = 0; l < unscaledNums.length; l++) {
+              let unscaled = unscaledNums[l];
               scaled[l][i] = scaleBetween(unscaled, -3, 3, minRange, maxRange);
             }
           }
 
-          var labels = new Array(y.length)
+          let labels = new Array(y.length)
 
-          var maxRange = Math.max.apply(Math, y);
-          var minRange = Math.min.apply(Math, y);
+          let maxRange = Math.max.apply(Math, y);
+          let minRange = Math.min.apply(Math, y);
 
           for (let i = 0; i < y.length; i++) {
-            var unscaled = y[i];
+            let unscaled = y[i];
             labels[i] = scaleBetween(unscaled, -1, 1, minRange, maxRange);
           }
           

@@ -50,16 +50,13 @@ const SideDrawer = props => {
     <div>
       <ListItem classes={{ root: classes.root }} button>
         <Typography style={{ fontSize: '20px', fontWeight: '500', color: 'white' }}>
-          Algorithms
-                </Typography>
+            Algorithms
+          </Typography>
       </ListItem>
       <Divider />
       <List>
-        <ListItem button onClick={() => { pushLink('/') }}>
+        <ListItem button onClick={() => { pushLink('/dashboard') }}>
           <ListItemText primary="Dashboard" />
-        </ListItem>
-        <ListItem button onClick={() => { pushLink('/overview') }}>
-          <ListItemText primary="Overview" />
         </ListItem>
       </List>
       <Divider />
