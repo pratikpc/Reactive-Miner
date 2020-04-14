@@ -1,22 +1,28 @@
 {
   "files": {
-    "main.css": "/Reactive-Miner/static/css/main.0f51c445.chunk.css",
-    "main.js": "/Reactive-Miner/static/js/main.bdd29a15.chunk.js",
-    "main.js.map": "/Reactive-Miner/static/js/main.bdd29a15.chunk.js.map",
+    "main.css": "/Reactive-Miner/static/css/main.f2756ed9.chunk.css",
+    "main.js": "/Reactive-Miner/static/js/main.3848feb5.chunk.js",
+    "main.js.map": "/Reactive-Miner/static/js/main.3848feb5.chunk.js.map",
     "runtime-main.js": "/Reactive-Miner/static/js/runtime-main.0a2f8687.js",
     "runtime-main.js.map": "/Reactive-Miner/static/js/runtime-main.0a2f8687.js.map",
-    "static/js/2.622b618b.chunk.js": "/Reactive-Miner/static/js/2.622b618b.chunk.js",
-    "static/js/2.622b618b.chunk.js.map": "/Reactive-Miner/static/js/2.622b618b.chunk.js.map",
+    "static/js/2.cf5b99ea.chunk.js": "/Reactive-Miner/static/js/2.cf5b99ea.chunk.js",
+    "static/js/2.cf5b99ea.chunk.js.map": "/Reactive-Miner/static/js/2.cf5b99ea.chunk.js.map",
     "index.html": "/Reactive-Miner/index.html",
-    "precache-manifest.9ae0f528c58880e8cf5892bb3f1d2123.js": "/Reactive-Miner/precache-manifest.9ae0f528c58880e8cf5892bb3f1d2123.js",
+    "precache-manifest.e3eea1470473e86fc17bad4edf5b393e.js": "/Reactive-Miner/precache-manifest.e3eea1470473e86fc17bad4edf5b393e.js",
     "service-worker.js": "/Reactive-Miner/service-worker.js",
-    "static/css/main.0f51c445.chunk.css.map": "/Reactive-Miner/static/css/main.0f51c445.chunk.css.map",
-    "static/js/2.622b618b.chunk.js.LICENSE.txt": "/Reactive-Miner/static/js/2.622b618b.chunk.js.LICENSE.txt"
+    "static/css/main.f2756ed9.chunk.css.map": "/Reactive-Miner/static/css/main.f2756ed9.chunk.css.map",
+    "static/js/2.cf5b99ea.chunk.js.LICENSE.txt": "/Reactive-Miner/static/js/2.cf5b99ea.chunk.js.LICENSE.txt",
+    "static/media/d3.png": "/Reactive-Miner/static/media/d3.4c03f352.png",
+    "static/media/logo.png": "/Reactive-Miner/static/media/logo.69938821.png",
+    "static/media/lr.png": "/Reactive-Miner/static/media/lr.3c9b5918.png",
+    "static/media/materialui.png": "/Reactive-Miner/static/media/materialui.76472f0a.png",
+    "static/media/react.png": "/Reactive-Miner/static/media/react.2bee11a8.png",
+    "static/media/tensorflow.png": "/Reactive-Miner/static/media/tensorflow.9bcd42cb.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0a2f8687.js",
-    "static/js/2.622b618b.chunk.js",
-    "static/css/main.0f51c445.chunk.css",
-    "static/js/main.bdd29a15.chunk.js"
+    "static/js/2.cf5b99ea.chunk.js",
+    "static/css/main.f2756ed9.chunk.css",
+    "static/js/main.3848feb5.chunk.js"
   ]
 }
