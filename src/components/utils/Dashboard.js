@@ -47,7 +47,7 @@ const Dashboard = () => {
           <Paper className={classes.paper}>
             Reactive Miner implements Most of the Machine Learning Algorithms along with high quality and highly informative
             Graphs and Plots which help the user to Understand the Results of those Machine Learning Algorithms.
-            It Provides a high level function for all the analysis tasks done by a User.
+            It Provides a high level function for all the analysis tasks done by a User. Reactive miner is easy to use and understand for a Beginner.
           </Paper>
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
