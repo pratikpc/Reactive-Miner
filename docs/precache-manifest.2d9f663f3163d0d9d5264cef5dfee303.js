@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5f68d88985915cf93f00304b1f8c9aeb",
+    "revision": "92826d7558056ecb085b8f8b02db7d2a",
     "url": "/Reactive-Miner/index.html"
   },
   {
-    "revision": "dc9e360fdf27bf677962",
+    "revision": "20d639bc5b7f55b29bd3",
     "url": "/Reactive-Miner/static/css/main.f2756ed9.chunk.css"
   },
   {
@@ -16,16 +16,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Reactive-Miner/static/js/2.4fc14f3c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "dc9e360fdf27bf677962",
-    "url": "/Reactive-Miner/static/js/main.8a43749a.chunk.js"
+    "revision": "20d639bc5b7f55b29bd3",
+    "url": "/Reactive-Miner/static/js/main.b863f157.chunk.js"
   },
   {
     "revision": "150b967e3319e8b8d84f",
     "url": "/Reactive-Miner/static/js/runtime-main.0a2f8687.js"
   },
   {
-    "revision": "1914000de1775aba0cac2595cb4b8ef3",
-    "url": "/Reactive-Miner/static/media/d3.1914000d.png"
+    "revision": "dedb2e58c95fbfa2e4d864f77d4d038c",
+    "url": "/Reactive-Miner/static/media/d3.dedb2e58.png"
   },
   {
     "revision": "825785e55305f5b2755a56b7d7f05fae",
@@ -60,23 +60,23 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Reactive-Miner/static/media/lr.db30b99d.png"
   },
   {
-    "revision": "ad8d25672df41468dcda0209879db8dc",
-    "url": "/Reactive-Miner/static/media/materialui.ad8d2567.png"
+    "revision": "a019edaf3640624e10a1debc2ac0be5e",
+    "url": "/Reactive-Miner/static/media/materialui.a019edaf.png"
   },
   {
     "revision": "5a6d4d9a0367581791e2d292c10b0e04",
     "url": "/Reactive-Miner/static/media/pca.5a6d4d9a.svg"
   },
   {
-    "revision": "79961e9f1cafbd63783a6f07c5430c11",
-    "url": "/Reactive-Miner/static/media/react.79961e9f.png"
+    "revision": "0f3257bcb3c065aa0075a6759a995970",
+    "url": "/Reactive-Miner/static/media/react.0f3257bc.jpg"
   },
   {
     "revision": "8c1b2bdde9d2a71ed7eb0d7e04dddfdc",
     "url": "/Reactive-Miner/static/media/svm.8c1b2bdd.png"
   },
   {
-    "revision": "ad870de694e302677dc9af2107332dbc",
-    "url": "/Reactive-Miner/static/media/tensorflow.ad870de6.png"
+    "revision": "f10ec045780b2b62cff15058e6788eb1",
+    "url": "/Reactive-Miner/static/media/tensorflow.f10ec045.png"
   }
 ]);
