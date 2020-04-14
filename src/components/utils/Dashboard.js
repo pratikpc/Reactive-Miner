@@ -13,13 +13,8 @@ import logo from "./logo.png";
 import "./Dashboard.css";
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 300,
-    height: 370
-  },
-  divcon: {
-    paddingLeft: 20,
-    paddingRight: 20
+  grid: {
+      padding: '15px'
   },
   media: {
     height: 180
@@ -33,11 +28,10 @@ const Dashboard = () => {
 
   return (
     <div>
-    <div className={classes.divcon}>
-      <Grid container spacing={2}>
-        <Grid item xs={6} sm={3}>
+      <Grid container>
+        <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
           <br />
-          <Card className={classes.root} spacing={4}>
+          <Card>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -63,9 +57,9 @@ const Dashboard = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
           <br />
-          <Card className={classes.root} spacing={4}>
+          <Card>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -91,9 +85,9 @@ const Dashboard = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
           <br />
-          <Card className={classes.root}>
+          <Card>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -117,9 +111,9 @@ const Dashboard = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
           <br />
-          <Card className={classes.root} spacing={4}>
+          <Card>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -147,10 +141,9 @@ const Dashboard = () => {
           </Card>
         </Grid>
       </Grid>
-    </div>
     <div >
       <br />
-    <img class="center" src={logo} alt="cannot find" />
+    <img width="200" className="center" src={logo} alt="cannot find" />
     </div>
     </div>
   );
