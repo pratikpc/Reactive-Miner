@@ -41,7 +41,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                // image={require("./images/tensorflow.png")}
+                image={require("./images/tensorflow.png")}
                 title="Tensorflow JS"
               />
               <CardContent>
@@ -69,7 +69,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                // image={require("./images/react.png")}
+                image={require("./images/react.png")}
                 title="React JS"
               />
               <CardContent>
@@ -97,7 +97,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                // image={require("./images/d3.png")}
+                image={require("./images/d3.png")}
                 title="D3.JS"
               />
               <CardContent>
@@ -123,7 +123,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                // image={require("./images/materialui.png")}
+                image={require("./images/materialui.png")}
                 title="Material UI"
               />
               <CardContent>

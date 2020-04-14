@@ -46,7 +46,7 @@ const Overview = () => {
 
     if (data.length > 0) {
       try {
-          for(let i=0;i< data[0].length;i++){
+          for(let i=0;i< 2;i++){
             var unscaledNums=[];
 
             for(let j=0;j< data.length;j++){
