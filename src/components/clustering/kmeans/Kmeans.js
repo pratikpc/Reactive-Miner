@@ -16,7 +16,6 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import { kmeans } from '../fcmeans/figue';
 import { ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
 import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../linreg/utils';
-import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -81,9 +80,6 @@ export default function Kmeans() {
             <Grid container>
                 <Grid item md={6} xs={12}>
                     <TitleBar name="K Means Clustering" tags={['Clustering', 'K-Means', 'ScatterPlot']} />
-                    <p>
-                        <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
-                    </p>
                     <CsvReader />
                     <CsvTable />
                 </Grid>

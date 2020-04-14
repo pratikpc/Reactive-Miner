@@ -21,8 +21,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
-
 const useStyles = makeStyles(theme => ({
     paper: {
         margin: theme.spacing(8, 4),
@@ -135,9 +133,6 @@ export default function LinearRegression() {
         <Grid container>
             <Grid item md={6} xs={12}>
                 <TitleBar name="Linear Regression" tags={['Classification', 'Regression']} />
-                <p>
-                    <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
-                </p>
                 <CsvReader />
                 <CsvTable />
             </Grid>
