@@ -9,11 +9,16 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300
+    maxWidth: 300,
+    height : 370
+  },
+  divcon:{
+    paddingLeft : 20,
+    paddingRight : 20
   },
   media: {
     height: 180
@@ -27,7 +32,7 @@ const Dashboard = () => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.divcon}>
       <Grid container spacing={2}>
         <Grid item xs={6} sm={3}>
           <br />
@@ -35,7 +40,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image={require("./images/tensorflow.png")}
+                // image={require("./images/tensorflow.png")}
                 title="Tensorflow JS"
               />
               <CardContent>
@@ -43,8 +48,7 @@ const Dashboard = () => {
                   TensorFlow.JS
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  TensorFlow.js is a library for machine learning in JavaScript.
-                  It is maintained by Google.
+                TensorFlow.js is an hardware-accelerated JavaScript library for training and deploying ML models.
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -63,7 +67,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image={require("./images/react.png")}
+                // image={require("./images/react.png")}
                 title="React JS"
               />
               <CardContent>
@@ -91,7 +95,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image={require("./images/d3.png")}
+                // image={require("./images/d3.png")}
                 title="D3.JS"
               />
               <CardContent>
@@ -117,12 +121,12 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image={require("./images/materialui.png")}
+                // image={require("./images/materialui.png")}
                 title="Material UI"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  React
+                Material UI
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                   Material UI provides React components for faster web
