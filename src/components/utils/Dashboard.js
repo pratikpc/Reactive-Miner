@@ -81,7 +81,7 @@ const Dashboard = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image={require("./images/react.png")}
+                image={require("./images/react.jpg")}
                 title="React JS"
               />
               <CardContent>
