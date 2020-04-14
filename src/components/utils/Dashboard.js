@@ -20,6 +20,10 @@ const useStyles = makeStyles({
   },
   media: {
     height: 180
+  },
+  cardHeight:{
+    maxWidth: 345,
+    height : 350
   }
 });
 
@@ -35,7 +39,7 @@ const Dashboard = () => {
           <TitleBar name="Reactive Miner" tags={['Data Mining', 'Machine Learning', 'Regression', 'Classification', 'Clustering']} logo={logo} />
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
-          <Card>
+          <Card className={classes.cardHeight} spacing={4}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -62,7 +66,7 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
-          <Card>
+          <Card className={classes.cardHeight} spacing={4}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -89,7 +93,7 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
-          <Card>
+          <Card className={classes.cardHeight} spacing={4}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -114,7 +118,7 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
-          <Card>
+          <Card className={classes.cardHeight} spacing={4}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
