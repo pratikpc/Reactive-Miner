@@ -27,15 +27,14 @@ const useStyles = makeStyles({
     height : 380
   },
   paper: {
-    padding: theme.spacing(2),
+    margin: '10px',
+    padding: '10px',
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: 'white',
   },
 });
 
 const Dashboard = () => {
-  // eslint-disable-next-line
-  const [spacing, setSpacing] = React.useState(2);
   const classes = useStyles();
 
   return (
@@ -46,7 +45,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            Reactive Miners Implements Most of the Machine Learning Algorithms along with high quality and highly informative
+            Reactive Miner implements Most of the Machine Learning Algorithms along with high quality and highly informative
             Graphs and Plots which help the user to Understand the Results of those Machine Learning Algorithms.
             It Provides a high level function for all the analysis tasks done by a User.
           </Paper>
