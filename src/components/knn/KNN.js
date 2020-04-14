@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import MUIDataTable from "mui-datatables";
 import {KNNVisualization} from './d3knn';
 import LoadDataset from '../utils/LoadDataset';
+import Description from '../utils/Description';
 import TitleBar from '../utils/TitleBar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -151,6 +152,7 @@ const KNN = () => {
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <LoadDataset />
+                    <Description desc="knn" />
                     <div style={{ margin: '20px' }}>
                         <Grid container>
                             <Grid item xs={12}>

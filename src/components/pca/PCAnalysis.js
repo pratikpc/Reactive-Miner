@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { csvContext } from '../context/csv-context';
 import LoadDataset from '../utils/LoadDataset';
+import Description from '../utils/Description';
 import { makeStyles } from '@material-ui/core/styles';
 import CsvReader from '../utils/CsvReader';
 import CsvTable from '../utils/CsvTable';
@@ -104,6 +105,7 @@ const PCAnalysis = () => {
                 <Grid item md={6} xs={12}>
                     <div style={{ padding: '10px' }}>
                         <LoadDataset />
+                        <Description desc="pca" />
                         {error && (
                             <Alert style={{ margin: '10px' }} onClose={() => setError('')} severity="error">
                                 {error}

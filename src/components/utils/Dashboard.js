@@ -11,10 +11,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import logo from "./logo.png";
 import "./Dashboard.css";
+import TitleBar from "./TitleBar";
 
 const useStyles = makeStyles({
   grid: {
-      padding: '15px'
+      padding: '15px',
   },
   media: {
     height: 180
@@ -29,8 +30,10 @@ const Dashboard = () => {
   return (
     <div>
       <Grid container>
+        <Grid item md={6} xs={12}>
+          <TitleBar name="Reactive Miner" tags={['Data Mining', 'Machine Learning', 'Regression', 'Classification', 'Clustering']} logo={logo} />
+        </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
-          <br />
           <Card>
             <CardActionArea>
               <CardMedia
@@ -58,7 +61,6 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
-          <br />
           <Card>
             <CardActionArea>
               <CardMedia
@@ -86,7 +88,6 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
-          <br />
           <Card>
             <CardActionArea>
               <CardMedia
@@ -112,7 +113,6 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
-          <br />
           <Card>
             <CardActionArea>
               <CardMedia

@@ -7,6 +7,7 @@ import { drawCircle } from './utils';
 import TitleBar from '../utils/TitleBar';
 import Alert from '@material-ui/lab/Alert';
 import LoadDataset from '../utils/LoadDataset';
+import Description from '../utils/Description';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -195,6 +196,7 @@ const Overview = () => {
         <Grid item md={6} xs={12}>
                     <div style={{ padding: '10px' }}>
                         <LoadDataset />
+                        <Description desc="svm" />
                         {error && (
                             <Alert style={{ margin: '10px' }} onClose={() => setError('')} severity="error">
                                 {error}
