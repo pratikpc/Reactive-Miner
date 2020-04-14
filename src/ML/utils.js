@@ -1,8 +1,5 @@
 import * as tf from "@tensorflow/tfjs";
 
-// eslint-disable-next-line
-import nm from 'feature-scaling';
-
 export function Normalize(tensor) {
     return tf.tidy(() => {
         const max = tensor.max();

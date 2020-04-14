@@ -3,7 +3,7 @@ import {
   HashRouter as Router, 
   Route, 
   Redirect, 
-  Switch 
+  Switch
 } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
 import customTheme from './components/theme/theme.json';
@@ -20,6 +20,7 @@ import Svm from './components/svm/Svm';
 import KNN from './components/knn/KNN';
 import PCAnalysis from './components/pca/PCAnalysis';
 import FCMeans from './components/clustering/fcmeans/FCMeans';
+import Landing from './components/landing/Landing';
 
 
 const theme = createMuiTheme(customTheme);
@@ -33,37 +34,60 @@ const App = () => {
 
   let routes = (
       <Switch>
-        <Route path="/" exact>
-            <Dashboard />
-        </Route>
-        <Route path="/overview" exact>
-            <Overview />
-        </Route>
-        <Route path="/linreg" exact>
-          <LinearRegression/>
-        </Route>
-        <Route path="/decision-tree" exact>
-          <DecisionTree />
-        </Route>
-        <Route path="/hcluster" exact>
-          <HierarchicalClustering />
-        </Route>
-        <Route path="/kmeans" exact>
-          <Kmeans />
-        </Route>
-        <Route path="/fcmeans" exact>
-          <FCMeans />
-        </Route>
-        <Route path="/svm" exact>
-          <Svm />
-        </Route>
-        <Route path="/knn" exact>
-          <KNN />
-        </Route>
-        <Route path="/pca" exact>
-          <PCAnalysis />
-        </Route>
-        <Redirect to="/" />
+          <Route path="/landing" exact>
+            <Landing />
+          </Route>
+          <Route path="/" exact>
+            <Header>              
+              <Dashboard />
+            </Header>
+          </Route>
+          <Route path="/overview" exact>
+            <Header>
+              <Overview />
+            </Header>
+          </Route>
+          <Route path="/linreg" exact>
+            <Header>
+              <LinearRegression/>
+            </Header>
+          </Route>
+          <Route path="/decision-tree" exact>
+            <Header>
+              <DecisionTree />
+            </Header>
+          </Route>
+          <Route path="/hcluster" exact>
+            <Header>            
+              <HierarchicalClustering />
+            </Header>
+          </Route>
+          <Route path="/kmeans" exact>
+            <Header>            
+              <Kmeans />
+            </Header>
+          </Route>
+          <Route path="/fcmeans" exact>
+            <Header>
+              <FCMeans />
+            </Header>
+          </Route>
+          <Route path="/svm" exact>
+            <Header>
+              <Svm />
+            </Header>
+          </Route>
+          <Route path="/knn" exact>
+            <Header>
+              <KNN />
+            </Header>
+          </Route>
+          <Route path="/pca" exact>
+            <Header>
+              <PCAnalysis />
+            </Header>
+          </Route>
+          <Redirect to="/" />
       </Switch>
     )
 
@@ -76,9 +100,7 @@ const App = () => {
           }}
         >
           <Router>
-            <Header>
               {routes}
-            </Header>
           </Router>
         </csvContext.Provider>
       </ThemeProvider>

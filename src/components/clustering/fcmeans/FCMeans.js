@@ -22,7 +22,6 @@ import Slider from '@material-ui/core/Slider';
 import { fcmeans } from './figue.js';
 import { FindArgMax, ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils';
 import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../linreg/utils';
-import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -84,9 +83,6 @@ export default function FCMeans() {
             <Grid container>
                 <Grid item md={6} xs={12}>
                     <TitleBar name="Fuzzy C-Means" tags={['Clustering', 'C-Means', 'Matrix']} />
-                    <p>
-                        <Link href={`${process.env.PUBLIC_URL}/Linear Regression.csv`}>Sample CSV</Link>
-                    </p>
                     <CsvReader />
                     <CsvTable />
                 </Grid>
