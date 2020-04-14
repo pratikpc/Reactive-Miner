@@ -35,7 +35,7 @@ const Dashboard = () => {
   return (
     <div>
       <Grid container>
-        <Grid item md={6} xs={12}>
+        <Grid xs={12}>
           <TitleBar name="Reactive Miner" tags={['Data Mining', 'Machine Learning', 'Regression', 'Classification', 'Clustering']} logo={logo} />
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
@@ -146,10 +146,6 @@ const Dashboard = () => {
           </Card>
         </Grid>
       </Grid>
-    <div >
-      <br />
-    <img width="200" className="center" src={logo} alt="cannot find" />
-    </div>
     </div>
   );
 };
