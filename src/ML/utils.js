@@ -1,5 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
-var nm = require('feature-scaling')
+import nm from 'feature-scaling';
+// var nm = require('feature-scaling')
 
 export function Normalize(tensor) {
     return tf.tidy(() => {
