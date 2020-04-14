@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import logo from "./logo.png";
 import "./Dashboard.css";
 import TitleBar from "./TitleBar";
+import { Link } from "@material-ui/core";
 
 const useStyles = makeStyles({
   grid: {
@@ -54,7 +55,7 @@ const Dashboard = () => {
             <CardActions>
               {/* <Link to="https://www.tensorflow.org/js" > */}
               <Button size="small" color="primary">
-                <a href="https://www.tensorflow.org/js">See More</a>
+                <Link to="https://www.tensorflow.org/js">See More</Link>
               </Button>
               {/* </Link>  */}
             </CardActions>
@@ -81,7 +82,7 @@ const Dashboard = () => {
             <CardActions>
               {/* <Link to="https://www.tensorflow.org/js" > */}
               <Button size="small" color="primary">
-                <a href="https://reactjs.org/">See More</a>
+                <Link to="https://reactjs.org/">See More</Link>
               </Button>
               {/* </Link>  */}
             </CardActions>
@@ -107,7 +108,7 @@ const Dashboard = () => {
             </CardActionArea>
             <CardActions>
               <Button size="small" color="primary">
-                <a href="https://d3js.org/">See More</a>
+                <Link to="https://d3js.org/">See More</Link>
               </Button>
             </CardActions>
           </Card>
@@ -134,7 +135,7 @@ const Dashboard = () => {
             <CardActions>
               {/* <Link to="https://www.tensorflow.org/js" > */}
               <Button size="small" color="primary">
-                <a href="https://material-ui.com/">See More</a>
+                <Link href="https://material-ui.com/">See More</Link>
               </Button>
               {/* </Link>  */}
             </CardActions>
