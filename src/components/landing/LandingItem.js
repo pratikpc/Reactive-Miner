@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
 import './LandingItem.css';
@@ -28,7 +28,7 @@ const LandingItem = props => {
             <div className="container">
                 <img width="300" height="200" src={props.image} alt="Linear Regression" />
                 <div className="buttondiv">
-                    {show && <button onClick={() => {history.push('/linreg')}} className="btn">{props.name}</button>}
+                    {show && <button onClick={() => {history.push(props.url)}} className="btn">{props.name}</button>}
                 </div>             
             </div>
         </Grid>
