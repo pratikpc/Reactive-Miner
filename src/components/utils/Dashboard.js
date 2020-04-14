@@ -9,22 +9,22 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-// import { Link } from "react-router-dom";
+import logo from "./weka.png";
+import "./styles.css";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 300,
-    height : 370
+    height: 370
   },
-  divcon:{
-    paddingLeft : 20,
-    paddingRight : 20
+  divcon: {
+    paddingLeft: 20,
+    paddingRight: 20
   },
   media: {
     height: 180
   }
 });
-
 
 const Dashboard = () => {
   // eslint-disable-next-line
@@ -32,6 +32,7 @@ const Dashboard = () => {
   const classes = useStyles();
 
   return (
+    <div>
     <div className={classes.divcon}>
       <Grid container spacing={2}>
         <Grid item xs={6} sm={3}>
@@ -48,7 +49,8 @@ const Dashboard = () => {
                   TensorFlow.JS
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                TensorFlow.js is an hardware-accelerated JavaScript library for training and deploying ML models.
+                  TensorFlow.js is an hardware-accelerated JavaScript library
+                  for training and deploying ML models.
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -126,7 +128,7 @@ const Dashboard = () => {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                Material UI
+                  Material UI
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                   Material UI provides React components for faster web
@@ -145,6 +147,11 @@ const Dashboard = () => {
           </Card>
         </Grid>
       </Grid>
+    </div>
+    <div >
+      <br />
+    <img class="center" src={logo} alt="cannot find" />
+    </div>
     </div>
   );
 };
