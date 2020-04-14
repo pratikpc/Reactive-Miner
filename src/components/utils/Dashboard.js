@@ -55,7 +55,7 @@ const Dashboard = () => {
             <CardActions>
               {/* <Link to="https://www.tensorflow.org/js" > */}
               <Button size="small" color="primary">
-                <Link to="https://www.tensorflow.org/js">See More</Link>
+                <Link href="https://www.tensorflow.org/js">See More</Link>
               </Button>
               {/* </Link>  */}
             </CardActions>
@@ -82,7 +82,7 @@ const Dashboard = () => {
             <CardActions>
               {/* <Link to="https://www.tensorflow.org/js" > */}
               <Button size="small" color="primary">
-                <Link to="https://reactjs.org/">See More</Link>
+                <Link href="https://reactjs.org/">See More</Link>
               </Button>
               {/* </Link>  */}
             </CardActions>
@@ -108,7 +108,7 @@ const Dashboard = () => {
             </CardActionArea>
             <CardActions>
               <Button size="small" color="primary">
-                <Link to="https://d3js.org/">See More</Link>
+                <Link href="https://d3js.org/">See More</Link>
               </Button>
             </CardActions>
           </Card>
