@@ -9,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Paper from '@material-ui/core/Paper';
 import logo from "./logo.png";
 import "./Dashboard.css";
 import TitleBar from "./TitleBar";
@@ -24,7 +25,12 @@ const useStyles = makeStyles({
   cardHeight:{
     maxWidth: 345,
     height : 380
-  }
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
 });
 
 const Dashboard = () => {
@@ -37,6 +43,13 @@ const Dashboard = () => {
       <Grid container>
         <Grid xs={12}>
           <TitleBar name="Reactive Miner" tags={['Data Mining', 'Machine Learning', 'Regression', 'Classification', 'Clustering']} logo={logo} />
+        </Grid>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            Reactive Miners Implements Most of the Machine Learning Algorithms along with high quality and highly informative
+            Graphs and Plots which help the user to Understand the Results of those Machine Learning Algorithms.
+            It Provides a high level function for all the analysis tasks done by a User.
+          </Paper>
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
           <Card className={classes.cardHeight} spacing={4}>
@@ -130,8 +143,7 @@ const Dashboard = () => {
                   Material UI
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  Material UI provides React components for faster web
-                  development , implementing Google's Material Design
+                  Material UI provides React components implementing <Link href="https://material.io/">Google's Material Design</Link>
                   specification
                 </Typography>
               </CardContent>
