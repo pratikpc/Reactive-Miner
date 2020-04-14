@@ -1,6 +1,6 @@
 {
-  "short_name": "React Miner",
-  "name": "React Miner",
+  "short_name": "Reactive Miner",
+  "name": "Data Mining PWA tool using React",
   "icons": [
     {
       "src": "favicon.ico",
