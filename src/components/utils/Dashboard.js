@@ -45,12 +45,8 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            Reactive Miner implements Most of the Machine Learning Algorithms along with high quality and highly informative
-            Graphs and Plots which help the user to Understand the Results of those Machine Learning Algorithms.
-            It Provides a high level function for all the analysis tasks done by a User. Reactive miner is easy to use and understand for a Beginner.
-            This project proposed a real-time interactive data mining and visualization system using GPU programming technologies. 
-            To acquire data from different database platforms, we created a general programming interface using a TCP/IP.
-            To provide intuitive operation interfaces, Reactive Miner utilizes the GUI methods for interactive data mining and visualization.
+            Color and geometry representations are easily recognized and interpreted by the human brain. Hence, data visualization technologies provide data mining results with natural and intuitive operation interfaces. Currently, data miners always plot 2-dimensional and 3-dimensional diagrams using the traditional data visualization tools. However, it is difficult to visualize big data in real time using these tools. To enhance the visualization quality, this project proposes a realtime data mining and visualization system for big data.
+
           </Paper>
         </Grid>
         <Grid className={classes.grid} item xs={12} sm={6} md={3} lg={3}>
