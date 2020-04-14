@@ -8,6 +8,7 @@ import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -50,7 +51,7 @@ const SideDrawer = props => {
     <div>
       <ListItem classes={{ root: classes.root }} button>
         <Typography style={{ fontSize: '20px', fontWeight: '500', color: 'white' }}>
-            Algorithms
+          Algorithms
           </Typography>
       </ListItem>
       <Divider />
@@ -82,9 +83,6 @@ const SideDrawer = props => {
         <ListItem button onClick={() => { pushLink('/pca') }}>
           <ListItemText primary="PCA" />
         </ListItem>
-        {/* <ListItem button onClick={() => { pushLink('/svm') }}>
-          <ListItemText primary="SVM" />
-        </ListItem> */}
         <ListItem button onClick={() => { pushLink('/knn') }}>
           <ListItemText primary="KNN Classifier" />
         </ListItem>
@@ -106,7 +104,19 @@ const SideDrawer = props => {
         </ListItem>
       </List>
       <Divider />
-    </div>
+      <Divider />
+      <List>
+        <ListSubheader component="div">
+          GitHub
+        </ListSubheader>
+        <ListItem button onClick={() => { window.location.href = 'https://github.com/pratikpc/Reactive-Miner' }}>
+          <GitHubIcon />
+          < ListItemText style={{paddingLeft: 10}} primary="GitHub" />
+        </ListItem>
+      </List>
+      <Divider />
+      <Divider />
+    </div >
   );
 
   return (
