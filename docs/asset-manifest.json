@@ -1,28 +1,36 @@
 {
   "files": {
     "main.css": "/Reactive-Miner/static/css/main.f2756ed9.chunk.css",
-    "main.js": "/Reactive-Miner/static/js/main.3848feb5.chunk.js",
-    "main.js.map": "/Reactive-Miner/static/js/main.3848feb5.chunk.js.map",
+    "main.js": "/Reactive-Miner/static/js/main.6e4f9020.chunk.js",
+    "main.js.map": "/Reactive-Miner/static/js/main.6e4f9020.chunk.js.map",
     "runtime-main.js": "/Reactive-Miner/static/js/runtime-main.0a2f8687.js",
     "runtime-main.js.map": "/Reactive-Miner/static/js/runtime-main.0a2f8687.js.map",
-    "static/js/2.cf5b99ea.chunk.js": "/Reactive-Miner/static/js/2.cf5b99ea.chunk.js",
-    "static/js/2.cf5b99ea.chunk.js.map": "/Reactive-Miner/static/js/2.cf5b99ea.chunk.js.map",
+    "static/js/2.4fc14f3c.chunk.js": "/Reactive-Miner/static/js/2.4fc14f3c.chunk.js",
+    "static/js/2.4fc14f3c.chunk.js.map": "/Reactive-Miner/static/js/2.4fc14f3c.chunk.js.map",
     "index.html": "/Reactive-Miner/index.html",
-    "precache-manifest.e3eea1470473e86fc17bad4edf5b393e.js": "/Reactive-Miner/precache-manifest.e3eea1470473e86fc17bad4edf5b393e.js",
+    "precache-manifest.8f54454825a3c30c0a3b515bd1b10107.js": "/Reactive-Miner/precache-manifest.8f54454825a3c30c0a3b515bd1b10107.js",
     "service-worker.js": "/Reactive-Miner/service-worker.js",
     "static/css/main.f2756ed9.chunk.css.map": "/Reactive-Miner/static/css/main.f2756ed9.chunk.css.map",
-    "static/js/2.cf5b99ea.chunk.js.LICENSE.txt": "/Reactive-Miner/static/js/2.cf5b99ea.chunk.js.LICENSE.txt",
-    "static/media/d3.png": "/Reactive-Miner/static/media/d3.4c03f352.png",
+    "static/js/2.4fc14f3c.chunk.js.LICENSE.txt": "/Reactive-Miner/static/js/2.4fc14f3c.chunk.js.LICENSE.txt",
+    "static/media/d3.png": "/Reactive-Miner/static/media/d3.1914000d.png",
+    "static/media/db.svg": "/Reactive-Miner/static/media/db.825785e5.svg",
+    "static/media/dt.svg": "/Reactive-Miner/static/media/dt.cd31ead5.svg",
+    "static/media/fuzzyc.png": "/Reactive-Miner/static/media/fuzzyc.4abf0b90.png",
+    "static/media/github.png": "/Reactive-Miner/static/media/github.8cfee565.png",
+    "static/media/kmeans.svg": "/Reactive-Miner/static/media/kmeans.77fc9e1f.svg",
+    "static/media/knn.svg": "/Reactive-Miner/static/media/knn.581b755d.svg",
     "static/media/logo.png": "/Reactive-Miner/static/media/logo.69938821.png",
-    "static/media/lr.png": "/Reactive-Miner/static/media/lr.3c9b5918.png",
-    "static/media/materialui.png": "/Reactive-Miner/static/media/materialui.76472f0a.png",
-    "static/media/react.png": "/Reactive-Miner/static/media/react.2bee11a8.png",
-    "static/media/tensorflow.png": "/Reactive-Miner/static/media/tensorflow.9bcd42cb.png"
+    "static/media/lr.png": "/Reactive-Miner/static/media/lr.db30b99d.png",
+    "static/media/materialui.png": "/Reactive-Miner/static/media/materialui.ad8d2567.png",
+    "static/media/pca.svg": "/Reactive-Miner/static/media/pca.5a6d4d9a.svg",
+    "static/media/react.png": "/Reactive-Miner/static/media/react.79961e9f.png",
+    "static/media/svm.png": "/Reactive-Miner/static/media/svm.8c1b2bdd.png",
+    "static/media/tensorflow.png": "/Reactive-Miner/static/media/tensorflow.ad870de6.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0a2f8687.js",
-    "static/js/2.cf5b99ea.chunk.js",
+    "static/js/2.4fc14f3c.chunk.js",
     "static/css/main.f2756ed9.chunk.css",
-    "static/js/main.3848feb5.chunk.js"
+    "static/js/main.6e4f9020.chunk.js"
   ]
 }
