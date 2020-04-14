@@ -10,5 +10,9 @@
     {
         "name": "Quantitative 2",
         "url": "Linear Regression.csv"
+    },
+    {
+        "name": "SVM 1",
+        "url": "svm.csv"
     }
 ]

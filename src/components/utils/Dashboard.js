@@ -45,7 +45,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            Color and geometry representations are easily recognized and interpreted by the human brain. Hence, data visualization technologies provide data mining results with natural and intuitive operation interfaces. Currently, data miners always plot 2-dimensional and 3-dimensional diagrams using the traditional data visualization tools. However, it is difficult to visualize big data in real time using these tools. To enhance the visualization quality, this project proposes a realtime data mining and visualization system for big data.
+            Color and geometry representations are easily recognized and interpreted by the human brain. Hence, data visualization technologies provide data mining results with natural and intuitive operation interfaces. Currently, data miners always plot 2-dimensional and 3-dimensional diagrams using the traditional data visualization tools.To enhance the visualization quality, this project proposes a realtime data mining and visualization system for big data.
 
           </Paper>
         </Grid>
