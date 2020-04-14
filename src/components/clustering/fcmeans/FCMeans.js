@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import CsvReader from '../../utils/CsvReader';
 import CsvTable from '../../utils/CsvTable';
 import LoadDataset from '../../utils/LoadDataset';
+import Description from '../../utils/Description';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
@@ -91,6 +92,7 @@ export default function FCMeans() {
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <LoadDataset />
+                    <Description desc="fcmeans" />
                     {csv && columnNames && label ? (
                         <div style={{ padding: '10px' }}>
                             {error && (
