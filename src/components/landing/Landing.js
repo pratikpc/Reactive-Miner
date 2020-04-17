@@ -52,7 +52,7 @@ const Landing = () => {
                 <LandingItem image={lr} url="/linreg" name="Linear Regression" />
                 <LandingItem image={svm} url="/svm" name="Support Vector Machine" />
                 <LandingItem image={pca} url="/pca" name="Principal Component Analysis" />
-                <LandingItem image={dt} url="/dt" name="Decision Tree" />
+                <LandingItem image={dt} url="/decision-tree" name="Decision Tree" />
                 <LandingItem image={knn} url="/knn" name="K Nearest Neighbours" />
                 <LandingItem image={hc} url="/hcluster" name="Hierarchical Clustering" />
                 <LandingItem image={kmeans} url="/kmeans" name="KMeans Clustering" />
