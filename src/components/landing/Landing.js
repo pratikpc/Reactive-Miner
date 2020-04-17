@@ -54,7 +54,7 @@ const Landing = () => {
                 <LandingItem image={pca} url="/pca" name="Principal Component Analysis" />
                 <LandingItem image={dt} url="/dt" name="Decision Tree" />
                 <LandingItem image={knn} url="/knn" name="K Nearest Neighbours" />
-                <LandingItem image={hc} url="/hc" name="Hierarchical Clustering" />
+                <LandingItem image={hc} url="/hcluster" name="Hierarchical Clustering" />
                 <LandingItem image={kmeans} url="/kmeans" name="KMeans Clustering" />
                 <LandingItem image={fuzzyc} url="/fcmeans" name="Fuzzy Cmeans Clustering" />
                 <Grid item lg={3} md={4} sm={6} xs={12}>
