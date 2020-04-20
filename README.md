@@ -1,6 +1,6 @@
-## Reactive Miner
+# [Reactive Miner](https://pratikpc.github.io/Reactive-Miner)
 
-The project aims to plot the following algorithms into different visualisation formats like Live-Graphs, Diagrams, Bar-plots, etc. with all processing happening on the User End
+The project aims to plot the following algorithms into different visualisation formats like Live-Graphs, Diagrams, Bar-plots, etc. with all processing happening on the Client End via the browser using [Progressive Web Application](https://en.wikipedia.org/wiki/Progressive_web_application) technologies
 
 ## Algorithms Implemented
 1. Regression
@@ -24,7 +24,7 @@ The project aims to plot the following algorithms into different visualisation f
 
 A step by step series of examples that tell you how to get a development env running
 * Clone the repository.
-* npm install. 
+* npm install
 * npm start
 * Open URL mentioned by React on Console
 
