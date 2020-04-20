@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5a528c2149294ee131e0cebedc0fcd7c",
+    "revision": "b7789b53186740fc7574c82839bada73",
     "url": "/Reactive-Miner/index.html"
   },
   {
-    "revision": "b4b500e264019241c045",
+    "revision": "61b9b06d4e101d7292cb",
     "url": "/Reactive-Miner/static/css/main.df7fd64a.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Reactive-Miner/static/js/2.f5e23af4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b4b500e264019241c045",
-    "url": "/Reactive-Miner/static/js/main.c5291238.chunk.js"
+    "revision": "61b9b06d4e101d7292cb",
+    "url": "/Reactive-Miner/static/js/main.fe7c4f09.chunk.js"
   },
   {
     "revision": "150b967e3319e8b8d84f",
