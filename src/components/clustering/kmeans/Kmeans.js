@@ -54,13 +54,15 @@ async function PerformKMeans(csv, k, maxIters, labels, xIdx, yIdx) {
     const kmeans = new KMeans.default({ k: k, maxIter: maxIters });
     VisorStop();
     const data = await dataT.array();
-    kmeans.Train(dataT, (centroids, assignments) => {
-        const clusters = ConvertClusterIconsToData(assignments.arraySync(), k, data);
-        const chart = GenerateChartForCluster(centroids.arraySync(), clusters, xIdx, yIdx);
-        DrawScatterPlot(chart);
+    tf.tidy(() => {
+        kmeans.Train(dataT, (centroids, assignments) => {
+            const clusters = ConvertClusterIconsToData(assignments.arraySync(), k, data);
+            const chart = GenerateChartForCluster(centroids.arraySync(), clusters, xIdx, yIdx);
+            DrawScatterPlot(chart);
+        });
+        kmeans.Dispose();
     });
     dataT.dispose();
-    console.log(tf.memory());
 }
 export default function Kmeans() {
     const classes = useStyles();
