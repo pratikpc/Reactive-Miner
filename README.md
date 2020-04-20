@@ -1,3 +1,5 @@
+![Logo](https://raw.githubusercontent.com/pratikpc/Reactive-Miner/master/docs/logo512.png)
+
 ## Reactive Miner
 
 The project aims to plot the following algorithms into different visualisation formats like Live-Graphs, Diagrams, Bar-plots, etc. with all processing happening on the User End
