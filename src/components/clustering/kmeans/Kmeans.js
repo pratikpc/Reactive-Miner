@@ -50,19 +50,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 async function PerformKMeans(csv, k, maxIters, labels, xIdx, yIdx) {
-    const dataT = tf.tensor(await ConvertCSVToSingleArray(csv, labels));
-    const kmeans = new KMeans.default({ k: k, maxIter: maxIters });
+    const data = await ConvertCSVToSingleArray(csv, labels);
+    const dataT = tf.tensor(data);
     VisorStop();
-    const data = await dataT.array();
+    const kmeans = new KMeans.default({ k: k, maxIter: maxIters });
     tf.tidy(() => {
         kmeans.Train(dataT, (centroids, assignments) => {
             const clusters = ConvertClusterIconsToData(assignments.arraySync(), k, data);
             const chart = GenerateChartForCluster(centroids.arraySync(), clusters, xIdx, yIdx);
             DrawScatterPlot(chart);
         });
-        kmeans.Dispose();
     });
     dataT.dispose();
+    kmeans.Dispose();
 }
 export default function Kmeans() {
     const classes = useStyles();
@@ -162,6 +162,7 @@ export default function Kmeans() {
                                                     style={{ marginLeft: '10px', width: '90%' }}
                                                     label="k"
                                                     fullWidth
+                                                    type="number"
                                                     onChange={handleChange}
                                                     value={values.k}
                                                     name="k"
