@@ -17,6 +17,7 @@ The project aims to plot the following algorithms into different visualisation f
     * Hierarchical Clustering 
 
 
+
 ## Getting Started
 
 * Fork the repository.
@@ -28,11 +29,13 @@ The project aims to plot the following algorithms into different visualisation f
 * Open your localhost(XXXX) on your Web-browser.
 
 
+
 ### Prerequisites
 
 Nodejs
 
 https://nodejs.org/en/download/
+
 
 
 ### Installing
@@ -53,14 +56,19 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
+
+
 ## Running the tests
 
 Explain how to run the automated tests for this system
 
 
+
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
+
+
 
 ## Built With
 
@@ -69,14 +77,18 @@ Add additional notes about how to deploy this on a live system
 * [React.js](https://reactjs.org/docs/getting-started.html) - Use for frontend
 * [Material-UI](https://material-ui.com/getting-started/installation/) - Used for front-end CSS
 
+
+
 ## Project Members
 
-* **Pratik Chowdhari** - [Github](https://github.com/pratikpc)
+* **Pratik Chowdhury** - [Github](https://github.com/pratikpc)
 * **Amurto Basu** - [Github](https://github.com/amurto)
 * **Rahim Chunara** - [Github](https://github.com/RahimChunara)
 * **Abhishek Ahirrao** - [Github](https://github.com/colmeabhi)
 * **Princeton Baretto** - [Github](https://github.com/princebaretto99)
-* **Carol Sebastion** - [Github](https://github.com/carol80)
+* **Carol Sebastian** - [Github](https://github.com/carol80)
+
+
 
 ## Versioning
 
@@ -98,14 +110,18 @@ Add additional notes about how to deploy this on a live system
 ```
 
 
+
 ## Authors
 
 * **Abhishek Ahirrao** - *Initial work* - [Github](https://github.com/colmeabhi)
 
 
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+
 
 ## Acknowledgments
 
