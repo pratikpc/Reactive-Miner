@@ -13,7 +13,8 @@ import Paper from '@material-ui/core/Paper';
 import Alert from '@material-ui/lab/Alert';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { kmeans } from '../fcmeans/figue';
+import * as KMeans from "tf-kmeans";
+import * as tf from "@tensorflow/tfjs";
 import { ConvertCSVToSingleArray, ConvertClusterIconsToData } from '../../../ML/utils.js';
 import { VisorStop, DrawScatterPlot, GenerateChartForCluster } from '../../linreg/utils';
 
@@ -32,8 +33,8 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
     },
     descDiv: {
-        background: '#505050', 
-        width: '100%', 
+        background: '#505050',
+        width: '100%',
         padding: '15px',
         fontSize: '14px',
         margin: '10px',
@@ -48,14 +49,18 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-async function PerformKMeans(csv, k, labels, xIdx, yIdx) {
-    const data = await ConvertCSVToSingleArray(csv, labels);
-    const res = kmeans(k, data/*, epsilon, fuzziness*/)
-    console.log(res);
-    const clusters = ConvertClusterIconsToData(res.assignments, k, data);
+async function PerformKMeans(csv, k, maxIters, labels, xIdx, yIdx) {
+    const dataT = tf.tensor(await ConvertCSVToSingleArray(csv, labels));
+    const kmeans = new KMeans.default({ k: k, maxIter: maxIters });
     VisorStop();
-    const chart = GenerateChartForCluster(res.centroids, clusters, xIdx, yIdx);
-    await DrawScatterPlot(chart);
+    const data = await dataT.array();
+    kmeans.Train(dataT, (centroids, assignments) => {
+        const clusters = ConvertClusterIconsToData(assignments.arraySync(), k, data);
+        const chart = GenerateChartForCluster(centroids.arraySync(), clusters, xIdx, yIdx);
+        DrawScatterPlot(chart);
+    });
+    dataT.dispose();
+    console.log(tf.memory());
 }
 export default function Kmeans() {
     const classes = useStyles();
@@ -130,7 +135,8 @@ export default function Kmeans() {
                                         const k = values.k;
                                         const xIdx = 0;
                                         const yIdx = 1;
-                                        await PerformKMeans(csv, k, labels, xIdx, yIdx);
+                                        const maxIters = 100;
+                                        await PerformKMeans(csv, k, maxIters, labels, xIdx, yIdx);
                                     } catch (err) {
                                         console.error(err);
                                         setError('Please Recheck your Provided Parameters');
@@ -152,7 +158,7 @@ export default function Kmeans() {
                                                 </Paper>
                                                 <TextField id="standard-basic"
                                                     style={{ marginLeft: '10px', width: '90%' }}
-                                                    label="k" 
+                                                    label="k"
                                                     fullWidth
                                                     onChange={handleChange}
                                                     value={values.k}
