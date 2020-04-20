@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Reactive-Miner/static/css/main.df7fd64a.chunk.css",
-    "main.js": "/Reactive-Miner/static/js/main.fe7c4f09.chunk.js",
-    "main.js.map": "/Reactive-Miner/static/js/main.fe7c4f09.chunk.js.map",
+    "main.js": "/Reactive-Miner/static/js/main.bcc5c972.chunk.js",
+    "main.js.map": "/Reactive-Miner/static/js/main.bcc5c972.chunk.js.map",
     "runtime-main.js": "/Reactive-Miner/static/js/runtime-main.0a2f8687.js",
     "runtime-main.js.map": "/Reactive-Miner/static/js/runtime-main.0a2f8687.js.map",
     "static/js/2.f5e23af4.chunk.js": "/Reactive-Miner/static/js/2.f5e23af4.chunk.js",
     "static/js/2.f5e23af4.chunk.js.map": "/Reactive-Miner/static/js/2.f5e23af4.chunk.js.map",
     "index.html": "/Reactive-Miner/index.html",
-    "precache-manifest.bff853e67b6746d5e89d0cd5d685204e.js": "/Reactive-Miner/precache-manifest.bff853e67b6746d5e89d0cd5d685204e.js",
+    "precache-manifest.5d567fc84e6e681fd739227d80939561.js": "/Reactive-Miner/precache-manifest.5d567fc84e6e681fd739227d80939561.js",
     "service-worker.js": "/Reactive-Miner/service-worker.js",
     "static/css/main.df7fd64a.chunk.css.map": "/Reactive-Miner/static/css/main.df7fd64a.chunk.css.map",
     "static/js/2.f5e23af4.chunk.js.LICENSE.txt": "/Reactive-Miner/static/js/2.f5e23af4.chunk.js.LICENSE.txt",
@@ -31,6 +31,6 @@
     "static/js/runtime-main.0a2f8687.js",
     "static/js/2.f5e23af4.chunk.js",
     "static/css/main.df7fd64a.chunk.css",
-    "static/js/main.fe7c4f09.chunk.js"
+    "static/js/main.bcc5c972.chunk.js"
   ]
 }
