@@ -29,7 +29,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rimraf docs && react-scripts build && mv build docs || move build docs",
+    "build": "react-scripts build",
+    "clean-site": "rimraf docs",
+    "move-site": " && mv build docs || move build docs",
+    "deploy": "npm run clean-site && npm run build && npm run move-site",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
