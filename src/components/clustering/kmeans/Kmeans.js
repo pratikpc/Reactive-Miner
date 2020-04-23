@@ -107,6 +107,7 @@ export default function Kmeans() {
                                     label: label,
                                     linkage: 0,
                                     k: 3,
+                                    maxIters: 100,
                                     distance: 0,
                                     withLabel: true,
                                     withCentroid: false,
@@ -137,7 +138,7 @@ export default function Kmeans() {
                                         const k = values.k;
                                         const xIdx = 0;
                                         const yIdx = 1;
-                                        const maxIters = 100;
+                                        const maxIters = values.maxIters;
                                         await PerformKMeans(csv, k, maxIters, labels, xIdx, yIdx);
                                     } catch (err) {
                                         console.error(err);
