@@ -53,14 +53,18 @@ async function PerformKMeans(csv, k, maxIters, labels, xIdx, yIdx) {
     const data = await ConvertCSVToSingleArray(csv, labels);
     const dataT = tf.tensor(data);
     VisorStop();
-    const kmeans = new KMeans.default({ k: k, maxIter: maxIters });
-    tf.tidy(() => {
-        kmeans.Train(dataT, (centroids, assignments) => {
-            const clusters = ConvertClusterIconsToData(assignments.arraySync(), k, data);
-            const chart = GenerateChartForCluster(centroids.arraySync(), clusters, xIdx, yIdx);
-            DrawScatterPlot(chart);
-        });
+    const kmeans = new KMeans.default({
+        k: k,
+        maxIter: maxIters
     });
+    const predsT = await kmeans.TrainAsync(dataT, async (__, centroids, assignments) => {
+        // Plot after Every Iteration
+        const clusters = ConvertClusterIconsToData(await assignments.array(), k, data);
+        const chart = GenerateChartForCluster(await centroids.array(), clusters, xIdx, yIdx);
+        await DrawScatterPlot(chart);
+        assignments.dispose();
+    });
+    predsT.dispose();
     dataT.dispose();
     kmeans.Dispose();
 }
